@@ -2,7 +2,7 @@
   <div class="login" :style="'background-image:url('+ Background +');'">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
       <h3 class="title">
-        ELADMIN 后台管理系统
+        Yukimi 超市后台管理系统
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
@@ -47,7 +47,7 @@ import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
 import qs from 'qs'
-import Background from '@/assets/images/background.webp'
+import Background from '@/assets/images/YukimiBackGround.jpg'
 export default {
   name: 'Login',
   data() {
@@ -184,6 +184,8 @@ export default {
   .login-form {
     border-radius: 6px;
     background: #ffffff;
+    position: relative;
+    left: 350px;
     width: 385px;
     padding: 25px 25px 5px 25px;
     .el-input {

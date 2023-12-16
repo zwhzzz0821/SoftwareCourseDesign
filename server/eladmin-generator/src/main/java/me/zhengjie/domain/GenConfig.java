@@ -15,11 +15,14 @@
  */
 package me.zhengjie.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.*;
+
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -30,19 +33,16 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
-@Table(name = "code_gen_config")
+@TableName("code_gen_config")
 public class GenConfig implements Serializable {
 
     public GenConfig(String tableName) {
         this.tableName = tableName;
     }
 
-    @Id
-    @Column(name = "config_id")
     @ApiModelProperty(value = "ID", hidden = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(value = "config_id", type = IdType.AUTO)
     private Long id;
 
     @NotBlank

@@ -1,5 +1,5 @@
 /*
-*  Copyright 2019-2020 Zheng Jie
+*  Copyright 2019-2023 Zheng Jie
 *
 *  Licensed under the Apache License, Version 2.0 (the "License");
 *  you may not use this file except in compliance with the License.
@@ -16,44 +16,36 @@
 package ${package}.service;
 
 import ${package}.domain.${className};
-import ${package}.service.dto.${className}Dto;
-import ${package}.service.dto.${className}QueryCriteria;
-import org.springframework.data.domain.Pageable;
+import ${package}.domain.vo.${className}QueryCriteria;
 import java.util.Map;
 import java.util.List;
 import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.utils.PageResult;
 
 /**
-* @website https://eladmin.vip
 * @description 服务接口
 * @author ${author}
 * @date ${date}
 **/
-public interface ${className}Service {
+public interface ${className}Service extends IService<${className}> {
 
     /**
     * 查询数据分页
     * @param criteria 条件
-    * @param pageable 分页参数
-    * @return Map<String,Object>
+    * @param page 分页参数
+    * @return PageResult
     */
-    PageResult<${className}Dto> queryAll(${className}QueryCriteria criteria, Pageable pageable);
+    PageResult<${className}> queryAll(${className}QueryCriteria criteria, Page<Object> page);
 
     /**
     * 查询所有数据不分页
     * @param criteria 条件参数
     * @return List<${className}Dto>
     */
-    List<${className}Dto> queryAll(${className}QueryCriteria criteria);
-
-    /**
-     * 根据ID查询
-     * @param ${pkChangeColName} ID
-     * @return ${className}Dto
-     */
-    ${className}Dto findById(${pkColumnType} ${pkChangeColName});
+    List<${className}> queryAll(${className}QueryCriteria criteria);
 
     /**
     * 创建
@@ -71,7 +63,7 @@ public interface ${className}Service {
     * 多选删除
     * @param ids /
     */
-    void deleteAll(${pkColumnType}[] ids);
+    void deleteAll(List<${pkColumnType}> ids);
 
     /**
     * 导出数据
@@ -79,5 +71,5 @@ public interface ${className}Service {
     * @param response /
     * @throws IOException /
     */
-    void download(List<${className}Dto> all, HttpServletResponse response) throws IOException;
+    void download(List<${className}> all, HttpServletResponse response) throws IOException;
 }

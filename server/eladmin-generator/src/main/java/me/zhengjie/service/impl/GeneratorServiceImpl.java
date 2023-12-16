@@ -16,30 +16,26 @@
 package me.zhengjie.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.ColumnInfo;
 import me.zhengjie.domain.vo.TableInfo;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.repository.ColumnInfoRepository;
+import me.zhengjie.mapper.ColumnInfoMapper;
 import me.zhengjie.service.GeneratorService;
 import me.zhengjie.utils.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,87 +44,47 @@ import java.util.stream.Collectors;
  * @author Zheng Jie
  * @date 2019-01-02
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class GeneratorServiceImpl implements GeneratorService {
-    private static final Logger log = LoggerFactory.getLogger(GeneratorServiceImpl.class);
-    @PersistenceContext
-    private EntityManager em;
+public class GeneratorServiceImpl extends ServiceImpl<ColumnInfoMapper, ColumnInfo> implements GeneratorService {
 
-    private final ColumnInfoRepository columnInfoRepository;
-
+    private final ColumnInfoMapper columnInfoMapper;
     private final String CONFIG_MESSAGE = "请先配置生成器";
+
     @Override
-    public Object getTables() {
-        // 使用预编译防止sql注入
-        String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
-                "where table_schema = (select database()) " +
-                "order by create_time desc";
-        Query query = em.createNativeQuery(sql);
-        return query.getResultList();
+    public PageResult<TableInfo> getTables(String name, Page<Object> page) {
+        return PageUtil.toPage(columnInfoMapper.getTables(name, page));
     }
 
     @Override
-    public PageResult<TableInfo> getTables(String name, int[] startEnd) {
-        // 使用预编译防止sql注入
-        String sql = "select table_name ,create_time , engine, table_collation, table_comment from information_schema.tables " +
-                "where table_schema = (select database()) " +
-                "and table_name like :table order by create_time desc";
-        Query query = em.createNativeQuery(sql);
-        query.setFirstResult(startEnd[0]);
-        query.setMaxResults(startEnd[1] - startEnd[0]);
-        query.setParameter("table", StringUtils.isNotBlank(name) ? ("%" + name + "%") : "%%");
-        List result = query.getResultList();
-        List<TableInfo> tableInfos = new ArrayList<>();
-        for (Object obj : result) {
-            Object[] arr = (Object[]) obj;
-            tableInfos.add(new TableInfo(arr[0], arr[1], arr[2], arr[3], ObjectUtil.isNotEmpty(arr[4]) ? arr[4] : "-"));
-        }
-        String countSql = "select count(1) from information_schema.tables " +
-                "where table_schema = (select database()) and table_name like :table";
-        Query queryCount = em.createNativeQuery(countSql);
-        queryCount.setParameter("table", StringUtils.isNotBlank(name) ? ("%" + name + "%") : "%%");
-        BigInteger totalElements = (BigInteger) queryCount.getSingleResult();
-        return PageUtil.toPage(tableInfos, totalElements.longValue());
-    }
-
-    @Override
+    @Transactional(rollbackFor = Exception.class)
     public List<ColumnInfo> getColumns(String tableName) {
-        List<ColumnInfo> columnInfos = columnInfoRepository.findByTableNameOrderByIdAsc(tableName);
+        List<ColumnInfo> columnInfos = columnInfoMapper.findByTableNameOrderByIdAsc(tableName);
         if (CollectionUtil.isNotEmpty(columnInfos)) {
             return columnInfos;
         } else {
             columnInfos = query(tableName);
-            return columnInfoRepository.saveAll(columnInfos);
+            saveBatch(columnInfos);
+            return columnInfos;
         }
     }
 
     @Override
     public List<ColumnInfo> query(String tableName) {
-        // 使用预编译防止sql注入
-        String sql = "select column_name, is_nullable, data_type, column_comment, column_key, extra from information_schema.columns " +
-                "where table_name = ? and table_schema = (select database()) order by ordinal_position";
-        Query query = em.createNativeQuery(sql);
-        query.setParameter(1, tableName);
-        List result = query.getResultList();
-        List<ColumnInfo> columnInfos = new ArrayList<>();
-        for (Object obj : result) {
-            Object[] arr = (Object[]) obj;
-            columnInfos.add(
-                    new ColumnInfo(
-                            tableName,
-                            arr[0].toString(),
-                            "NO".equals(arr[1]),
-                            arr[2].toString(),
-                            ObjectUtil.isNotNull(arr[3]) ? arr[3].toString() : null,
-                            ObjectUtil.isNotNull(arr[4]) ? arr[4].toString() : null,
-                            ObjectUtil.isNotNull(arr[5]) ? arr[5].toString() : null)
-            );
+        List<ColumnInfo> columnInfos = columnInfoMapper.getColumns(tableName);
+        for (ColumnInfo columnInfo : columnInfos) {
+            columnInfo.setTableName(tableName);
+            if(GenUtil.PK.equalsIgnoreCase(columnInfo.getKeyType())
+                    && GenUtil.EXTRA.equalsIgnoreCase(columnInfo.getExtra())){
+                columnInfo.setNotNull(false);
+            }
         }
         return columnInfos;
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void sync(List<ColumnInfo> columnInfos, List<ColumnInfo> columnInfoList) {
         // 第一种情况，数据库类字段改变或者新增字段
         for (ColumnInfo columnInfo : columnInfoList) {
@@ -143,10 +99,10 @@ public class GeneratorServiceImpl implements GeneratorService {
                 if (StringUtils.isBlank(column.getRemark())) {
                     column.setRemark(columnInfo.getRemark());
                 }
-                columnInfoRepository.save(column);
+                saveOrUpdate(column);
             } else {
                 // 如果找不到，则保存新字段信息
-                columnInfoRepository.save(columnInfo);
+                save(columnInfo);
             }
         }
         // 第二种情况，数据库字段删除了
@@ -155,14 +111,15 @@ public class GeneratorServiceImpl implements GeneratorService {
             List<ColumnInfo> columns = columnInfoList.stream().filter(c -> c.getColumnName().equals(columnInfo.getColumnName())).collect(Collectors.toList());
             // 如果找不到，就代表字段被删除了，则需要删除该字段
             if (CollectionUtil.isEmpty(columns)) {
-                columnInfoRepository.delete(columnInfo);
+                removeById(columnInfo);
             }
         }
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void save(List<ColumnInfo> columnInfos) {
-        columnInfoRepository.saveAll(columnInfos);
+        saveOrUpdateBatch(columnInfos);
     }
 
     @Override

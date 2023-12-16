@@ -15,6 +15,7 @@
  */
 package me.zhengjie.modules.mnt.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,11 +23,9 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.mnt.domain.Deploy;
 import me.zhengjie.modules.mnt.domain.DeployHistory;
 import me.zhengjie.modules.mnt.service.DeployService;
-import me.zhengjie.modules.mnt.service.dto.DeployDto;
-import me.zhengjie.modules.mnt.service.dto.DeployQueryCriteria;
+import me.zhengjie.modules.mnt.domain.vo.DeployQueryCriteria;
 import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,7 +54,6 @@ public class DeployController {
 	private final String fileSavePath = FileUtil.getTmpDirPath()+"/";
     private final DeployService deployService;
 
-
 	@ApiOperation("导出部署数据")
 	@GetMapping(value = "/download")
 	@PreAuthorize("@el.check('database:list')")
@@ -66,8 +64,8 @@ public class DeployController {
     @ApiOperation(value = "查询部署")
     @GetMapping
 	@PreAuthorize("@el.check('deploy:list')")
-    public ResponseEntity<PageResult<DeployDto>> queryDeployData(DeployQueryCriteria criteria, Pageable pageable){
-    	return new ResponseEntity<>(deployService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<PageResult<Deploy>> queryDeployData(DeployQueryCriteria criteria, Page<Object> page){
+    	return new ResponseEntity<>(deployService.queryAll(criteria, page),HttpStatus.OK);
     }
 
     @Log("新增部署")
@@ -120,35 +118,39 @@ public class DeployController {
 		map.put("id",fileName);
 		return new ResponseEntity<>(map,HttpStatus.OK);
 	}
+
 	@Log("系统还原")
 	@ApiOperation(value = "系统还原")
 	@PostMapping(value = "/serverReduction")
 	@PreAuthorize("@el.check('deploy:edit')")
-	public ResponseEntity<Object> serverReduction(@Validated @RequestBody DeployHistory resources){
+	public ResponseEntity<String> serverReduction(@Validated @RequestBody DeployHistory resources){
 		String result = deployService.serverReduction(resources);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
+
 	@Log("服务运行状态")
 	@ApiOperation(value = "服务运行状态")
 	@PostMapping(value = "/serverStatus")
 	@PreAuthorize("@el.check('deploy:edit')")
-	public ResponseEntity<Object> serverStatus(@Validated @RequestBody Deploy resources){
+	public ResponseEntity<String> serverStatus(@Validated @RequestBody Deploy resources){
 		String result = deployService.serverStatus(resources);
     	return new ResponseEntity<>(result,HttpStatus.OK);
 	}
+
 	@Log("启动服务")
 	@ApiOperation(value = "启动服务")
 	@PostMapping(value = "/startServer")
 	@PreAuthorize("@el.check('deploy:edit')")
-	public ResponseEntity<Object> startServer(@Validated @RequestBody Deploy resources){
+	public ResponseEntity<String> startServer(@Validated @RequestBody Deploy resources){
 		String result = deployService.startServer(resources);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}
+
 	@Log("停止服务")
 	@ApiOperation(value = "停止服务")
 	@PostMapping(value = "/stopServer")
 	@PreAuthorize("@el.check('deploy:edit')")
-	public ResponseEntity<Object> stopServer(@Validated @RequestBody Deploy resources){
+	public ResponseEntity<String> stopServer(@Validated @RequestBody Deploy resources){
 		String result = deployService.stopServer(resources);
 		return new ResponseEntity<>(result,HttpStatus.OK);
 	}

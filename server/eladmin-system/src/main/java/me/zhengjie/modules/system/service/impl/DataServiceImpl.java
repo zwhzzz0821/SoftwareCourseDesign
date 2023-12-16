@@ -17,11 +17,11 @@ package me.zhengjie.modules.system.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.modules.system.service.DataService;
 import me.zhengjie.modules.system.service.DeptService;
 import me.zhengjie.modules.system.service.RoleService;
-import me.zhengjie.modules.system.service.dto.RoleSmallDto;
-import me.zhengjie.modules.system.service.dto.UserDto;
 import me.zhengjie.utils.enums.DataScopeEnum;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -30,7 +30,6 @@ import java.util.*;
 
 /**
  * @author Zheng Jie
- * @website https://eladmin.vip
  * @description 数据权限服务实现
  * @date 2020-05-07
  **/
@@ -49,13 +48,13 @@ public class DataServiceImpl implements DataService {
      */
     @Override
     @Cacheable(key = "'user:' + #p0.id")
-    public List<Long> getDeptIds(UserDto user) {
+    public List<Long> getDeptIds(User user) {
         // 用于存储部门id
         Set<Long> deptIds = new HashSet<>();
         // 查询用户角色
-        List<RoleSmallDto> roleSet = roleService.findByUsersId(user.getId());
+        List<Role> roleList = roleService.findByUsersId(user.getId());
         // 获取对应的部门ID
-        for (RoleSmallDto role : roleSet) {
+        for (Role role : roleList) {
             DataScopeEnum dataScopeEnum = DataScopeEnum.find(role.getDataScope());
             switch (Objects.requireNonNull(dataScopeEnum)) {
                 case THIS_LEVEL:
@@ -77,7 +76,7 @@ public class DataServiceImpl implements DataService {
      * @param role 角色
      * @return 数据权限ID
      */
-    public Set<Long> getCustomize(Set<Long> deptIds, RoleSmallDto role){
+    public Set<Long> getCustomize(Set<Long> deptIds, Role role){
         Set<Dept> depts = deptService.findByRoleId(role.getId());
         for (Dept dept : depts) {
             deptIds.add(dept.getId());

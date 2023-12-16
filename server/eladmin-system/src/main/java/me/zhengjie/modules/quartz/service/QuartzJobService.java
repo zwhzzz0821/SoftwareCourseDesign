@@ -15,11 +15,13 @@
  */
 package me.zhengjie.modules.quartz.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import me.zhengjie.modules.quartz.domain.QuartzLog;
-import me.zhengjie.modules.quartz.service.dto.JobQueryCriteria;
+import me.zhengjie.modules.quartz.domain.vo.QuartzJobQueryCriteria;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -29,37 +31,39 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2019-01-07
  */
-public interface QuartzJobService {
+public interface QuartzJobService extends IService<QuartzJob> {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    PageResult<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable);
+    PageResult<QuartzJob> queryAll(QuartzJobQueryCriteria criteria, Page<Object> page);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzJob> queryAll(JobQueryCriteria criteria);
+    List<QuartzJob> queryAll(QuartzJobQueryCriteria criteria);
 
     /**
      * 分页查询日志
+     *
      * @param criteria 条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    PageResult<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable);
+    PageResult<QuartzLog> queryAllLog(QuartzJobQueryCriteria criteria, Page<Object> page);
 
     /**
      * 查询全部
      * @param criteria 条件
      * @return /
      */
-    List<QuartzLog> queryAllLog(JobQueryCriteria criteria);
+    List<QuartzLog> queryAllLog(QuartzJobQueryCriteria criteria);
 
     /**
      * 创建
@@ -78,13 +82,6 @@ public interface QuartzJobService {
      * @param ids /
      */
     void delete(Set<Long> ids);
-
-    /**
-     * 根据ID查询
-     * @param id ID
-     * @return /
-     */
-    QuartzJob findById(Long id);
 
     /**
      * 更改定时任务状态

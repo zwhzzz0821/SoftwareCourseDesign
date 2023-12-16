@@ -16,22 +16,18 @@
 package me.zhengjie.service.impl;
 
 import cn.hutool.core.lang.Dict;
-import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.SysLog;
-import me.zhengjie.repository.LogRepository;
+import me.zhengjie.mapper.SysLogMapper;
 import me.zhengjie.service.SysLogService;
-import me.zhengjie.service.dto.SysLogQueryCriteria;
-import me.zhengjie.service.dto.SysLogSmallDto;
-import me.zhengjie.service.mapstruct.LogErrorMapper;
-import me.zhengjie.service.mapstruct.LogSmallMapper;
+import me.zhengjie.domain.vo.SysLogQueryCriteria;
 import me.zhengjie.utils.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -49,30 +45,22 @@ import java.util.*;
  */
 @Service
 @RequiredArgsConstructor
-public class SysLogServiceImpl implements SysLogService {
-    private final LogRepository logRepository;
-    private final LogErrorMapper logErrorMapper;
-    private final LogSmallMapper logSmallMapper;
+public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> implements SysLogService {
+    private final SysLogMapper sysLogMapper;
 
     @Override
-    public Object queryAll(SysLogQueryCriteria criteria, Pageable pageable) {
-        Page<SysLog> page = logRepository.findAll(((root, criteriaQuery, cb) -> QueryHelp.getPredicate(root, criteria, cb)), pageable);
-        String status = "ERROR";
-        if (status.equals(criteria.getLogType())) {
-            return PageUtil.toPage(page.map(logErrorMapper::toDto));
-        }
-        return PageUtil.toPage(page);
+    public PageResult<SysLog> queryAll(SysLogQueryCriteria criteria, Page<SysLog> page) {
+        return PageUtil.toPage(sysLogMapper.queryAll(criteria, page));
     }
 
     @Override
     public List<SysLog> queryAll(SysLogQueryCriteria criteria) {
-        return logRepository.findAll(((root, criteriaQuery, cb) -> QueryHelp.getPredicate(root, criteria, cb)));
+        return sysLogMapper.queryAll(criteria);
     }
 
     @Override
-    public PageResult<SysLogSmallDto> queryAllByUser(SysLogQueryCriteria criteria, Pageable pageable) {
-        Page<SysLog> page = logRepository.findAll(((root, criteriaQuery, cb) -> QueryHelp.getPredicate(root, criteria, cb)), pageable);
-        return PageUtil.toPage(page.map(logSmallMapper::toDto));
+    public PageResult<SysLog> queryAllByUser(SysLogQueryCriteria criteria, Page<SysLog> page) {
+        return PageUtil.toPage(sysLogMapper.queryAllByUser(criteria, page));
     }
 
     @Override
@@ -103,7 +91,8 @@ public class SysLogServiceImpl implements SysLogService {
             sysLog.setParams(JSON.toJSONString(Dict.create().set("username", sysLog.getUsername())));
         }
         sysLog.setBrowser(browser);
-        logRepository.save(sysLog);
+        // 保存
+        save(sysLog);
     }
 
     /**
@@ -142,10 +131,8 @@ public class SysLogServiceImpl implements SysLogService {
 
     @Override
     public Object findByErrDetail(Long id) {
-        SysLog sysLog = logRepository.findById(id).orElseGet(SysLog::new);
-        ValidationUtil.isNull(sysLog.getId(), "Log", "id", id);
-        byte[] details = sysLog.getExceptionDetail();
-        return Dict.create().set("exception", new String(ObjectUtil.isNotNull(details) ? details : "".getBytes()));
+        String details = sysLogMapper.getExceptionDetails(id);
+        return Dict.create().set("exception", details);
     }
 
     @Override
@@ -159,7 +146,7 @@ public class SysLogServiceImpl implements SysLogService {
             map.put("描述", sysLog.getDescription());
             map.put("浏览器", sysLog.getBrowser());
             map.put("请求耗时/毫秒", sysLog.getTime());
-            map.put("异常详情", new String(ObjectUtil.isNotNull(sysLog.getExceptionDetail()) ? sysLog.getExceptionDetail() : "".getBytes()));
+            map.put("异常详情", sysLog.getExceptionDetail());
             map.put("创建日期", sysLog.getCreateTime());
             list.add(map);
         }
@@ -169,12 +156,14 @@ public class SysLogServiceImpl implements SysLogService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delAllByError() {
-        logRepository.deleteByLogType("ERROR");
+        // 删除 ERROR 级别的日志
+        sysLogMapper.deleteByLevel("ERROR");
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delAllByInfo() {
-        logRepository.deleteByLogType("INFO");
+        // 删除 INFO 级别的日志
+        sysLogMapper.deleteByLevel("INFO");
     }
 }

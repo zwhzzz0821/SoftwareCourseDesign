@@ -15,6 +15,7 @@
  */
 package me.zhengjie.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.domain.vo.EmailVo;
 import me.zhengjie.domain.EmailConfig;
 
@@ -22,7 +23,7 @@ import me.zhengjie.domain.EmailConfig;
  * @author Zheng Jie
  * @date 2018-12-26
  */
-public interface EmailService {
+public interface EmailService extends IService<EmailConfig> {
 
     /**
      * 更新邮件配置

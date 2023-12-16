@@ -15,12 +15,14 @@
  */
 package me.zhengjie.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import me.zhengjie.base.BaseEntity;
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -29,15 +31,12 @@ import java.io.Serializable;
 */
 @Getter
 @Setter
-@Entity
-@Table(name="tool_local_storage")
 @NoArgsConstructor
+@TableName("tool_local_storage")
 public class LocalStorage extends BaseEntity implements Serializable {
 
-    @Id
-    @Column(name = "storage_id")
+    @TableId(value = "storage_id", type = IdType.AUTO)
     @ApiModelProperty(value = "ID", hidden = true)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ApiModelProperty(value = "真实文件名")

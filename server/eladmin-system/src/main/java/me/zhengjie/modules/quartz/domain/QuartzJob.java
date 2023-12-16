@@ -15,11 +15,14 @@
  */
 package me.zhengjie.modules.quartz.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseEntity;
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -30,19 +33,16 @@ import java.io.Serializable;
  */
 @Getter
 @Setter
-@Entity
-@Table(name = "sys_quartz_job")
+@TableName("sys_quartz_job")
 public class QuartzJob extends BaseEntity implements Serializable {
 
     public static final String JOB_KEY = "JOB_KEY";
 
-    @Id
-    @Column(name = "job_id")
+    @TableId(value = "job_id", type = IdType.AUTO)
     @NotNull(groups = {Update.class})
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Transient
+    @TableField(exist = false)
     @ApiModelProperty(value = "用于子任务唯一标识", hidden = true)
     private String uuid;
 

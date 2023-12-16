@@ -15,9 +15,11 @@
  */
 package me.zhengjie.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
@@ -27,13 +29,10 @@ import java.io.Serializable;
  * @date 2018-12-31
  */
 @Data
-@Entity
-@Table(name = "tool_qiniu_config")
+@TableName("tool_qiniu_config")
 public class QiniuConfig implements Serializable {
 
-    @Id
-    @Column(name = "config_id")
-    @ApiModelProperty(value = "ID")
+    @TableId("config_id")
     private Long id;
 
     @NotBlank

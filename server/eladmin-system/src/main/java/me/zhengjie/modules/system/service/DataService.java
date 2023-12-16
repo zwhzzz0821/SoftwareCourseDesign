@@ -15,7 +15,7 @@
  */
 package me.zhengjie.modules.system.service;
 
-import me.zhengjie.modules.system.service.dto.UserDto;
+import me.zhengjie.modules.system.domain.User;
 import java.util.List;
 
 /**
@@ -30,5 +30,5 @@ public interface DataService {
      * @param user /
      * @return /
      */
-    List<Long> getDeptIds(UserDto user);
+    List<Long> getDeptIds(User user);
 }

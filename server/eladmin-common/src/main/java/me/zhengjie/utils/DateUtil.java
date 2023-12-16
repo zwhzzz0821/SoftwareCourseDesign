@@ -16,6 +16,7 @@
 
 package me.zhengjie.utils;
 
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
@@ -115,6 +116,14 @@ public class DateUtil {
      */
     public static String localDateTimeFormatyMdHms(LocalDateTime localDateTime) {
         return DFY_MD_HMS.format(localDateTime);
+    }
+
+    /**
+     * 获取当前时间
+     * @return 、
+     */
+    public static Timestamp getTimeStamp() {
+        return Timestamp.valueOf(LocalDateTime.now());
     }
 
     /**

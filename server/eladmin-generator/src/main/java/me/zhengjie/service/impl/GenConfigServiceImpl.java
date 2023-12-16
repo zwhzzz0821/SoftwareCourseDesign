@@ -15,11 +15,11 @@
  */
 package me.zhengjie.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.GenConfig;
-import me.zhengjie.repository.GenConfigRepository;
+import me.zhengjie.mapper.GenConfigMapper;
 import me.zhengjie.service.GenConfigService;
-import me.zhengjie.utils.StringUtils;
 import org.springframework.stereotype.Service;
 import java.io.File;
 
@@ -29,13 +29,14 @@ import java.io.File;
  */
 @Service
 @RequiredArgsConstructor
-public class GenConfigServiceImpl implements GenConfigService {
+@SuppressWarnings({"unchecked","all"})
+public class GenConfigServiceImpl extends ServiceImpl<GenConfigMapper, GenConfig> implements GenConfigService {
 
-    private final GenConfigRepository genConfigRepository;
+    private final GenConfigMapper genConfigMapper;
 
     @Override
     public GenConfig find(String tableName) {
-        GenConfig genConfig = genConfigRepository.findByTableName(tableName);
+        GenConfig genConfig = genConfigMapper.findByTableName(tableName);
         if(genConfig == null){
             return new GenConfig(tableName);
         }
@@ -62,6 +63,7 @@ public class GenConfigServiceImpl implements GenConfigService {
             }
         }
         genConfig.setApiPath(api.toString());
-        return genConfigRepository.save(genConfig);
+        saveOrUpdate(genConfig);
+        return genConfig;
     }
 }

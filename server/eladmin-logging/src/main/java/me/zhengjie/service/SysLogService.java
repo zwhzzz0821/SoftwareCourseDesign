@@ -15,31 +15,32 @@
  */
 package me.zhengjie.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.domain.SysLog;
-import me.zhengjie.service.dto.SysLogQueryCriteria;
-import me.zhengjie.service.dto.SysLogSmallDto;
+import me.zhengjie.domain.vo.SysLogQueryCriteria;
 import me.zhengjie.utils.PageResult;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
-
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zheng Jie
  * @date 2018-11-24
  */
-public interface SysLogService {
+public interface SysLogService extends IService<SysLog>{
 
     /**
      * 分页查询
+     *
      * @param criteria 查询条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    Object queryAll(SysLogQueryCriteria criteria, Pageable pageable);
+    PageResult<SysLog> queryAll(SysLogQueryCriteria criteria, Page<SysLog> page);
 
     /**
      * 查询全部数据
@@ -51,10 +52,10 @@ public interface SysLogService {
     /**
      * 查询用户日志
      * @param criteria 查询条件
-     * @param pageable 分页参数
+     * @param page 分页参数
      * @return -
      */
-    PageResult<SysLogSmallDto> queryAllByUser(SysLogQueryCriteria criteria, Pageable pageable);
+    PageResult<SysLog> queryAllByUser(SysLogQueryCriteria criteria, Page<SysLog> page);
 
     /**
      * 保存日志数据

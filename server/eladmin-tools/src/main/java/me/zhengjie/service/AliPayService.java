@@ -15,6 +15,7 @@
  */
 package me.zhengjie.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.domain.vo.TradeVo;
 import me.zhengjie.domain.AlipayConfig;
 
@@ -22,7 +23,7 @@ import me.zhengjie.domain.AlipayConfig;
  * @author Zheng Jie
  * @date 2018-12-31
  */
-public interface AliPayService {
+public interface AliPayService extends IService<AlipayConfig> {
 
     /**
      * 查询配置

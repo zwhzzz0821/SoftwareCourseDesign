@@ -15,11 +15,15 @@
  */
 package me.zhengjie.modules.system.domain;
 
+import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseEntity;
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -32,40 +36,34 @@ import java.util.Set;
  * @author Zheng Jie
  * @date 2018-11-22
  */
-@Entity
 @Getter
 @Setter
-@Table(name="sys_user")
+@TableName("sys_user")
 public class User extends BaseEntity implements Serializable {
 
-    @Id
-    @Column(name = "user_id")
     @NotNull(groups = Update.class)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(value="user_id", type = IdType.AUTO)
     @ApiModelProperty(value = "ID", hidden = true)
     private Long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @TableField(exist = false)
     @ApiModelProperty(value = "用户角色")
-    @JoinTable(name = "sys_users_roles",
-            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id",referencedColumnName = "role_id")})
     private Set<Role> roles;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+
+    @TableField(exist = false)
     @ApiModelProperty(value = "用户岗位")
-    @JoinTable(name = "sys_users_jobs",
-            joinColumns = {@JoinColumn(name = "user_id",referencedColumnName = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "job_id",referencedColumnName = "job_id")})
     private Set<Job> jobs;
 
-    @OneToOne
-    @JoinColumn(name = "dept_id")
+    @TableField(value = "dept_id")
+    @ApiModelProperty(hidden = true)
+    private Long deptId;
+
     @ApiModelProperty(value = "用户部门")
+    @TableField(exist = false)
     private Dept dept;
 
     @NotBlank
-    @Column(unique = true)
     @ApiModelProperty(value = "用户名称")
     private String username;
 
@@ -101,7 +99,6 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "是否为admin账号", hidden = true)
     private Boolean isAdmin = false;
 
-    @Column(name = "pwd_reset_time")
     @ApiModelProperty(value = "最后修改密码的时间", hidden = true)
     private Date pwdResetTime;
 

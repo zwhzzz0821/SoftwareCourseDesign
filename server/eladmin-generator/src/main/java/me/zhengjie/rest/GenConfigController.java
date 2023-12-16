@@ -45,7 +45,7 @@ public class GenConfigController {
 
     @PutMapping
     @ApiOperation("修改")
-    public ResponseEntity<Object> updateGenConfig(@Validated @RequestBody GenConfig genConfig){
+    public ResponseEntity<GenConfig> updateGenConfig(@Validated @RequestBody GenConfig genConfig){
         return new ResponseEntity<>(genConfigService.update(genConfig.getTableName(), genConfig),HttpStatus.OK);
     }
 }

@@ -17,11 +17,12 @@ package me.zhengjie.service.impl;
 
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.EmailConfig;
 import me.zhengjie.domain.vo.EmailVo;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.repository.EmailRepository;
+import me.zhengjie.mapper.EmailConfigMapper;
 import me.zhengjie.service.EmailService;
 import me.zhengjie.utils.EncryptUtils;
 import org.springframework.cache.annotation.CacheConfig;
@@ -29,7 +30,6 @@ import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 /**
  * @author Zheng Jie
@@ -38,9 +38,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "email")
-public class EmailServiceImpl implements EmailService {
-
-    private final EmailRepository emailRepository;
+public class EmailServiceImpl extends ServiceImpl<EmailConfigMapper, EmailConfig> implements EmailService {
 
     @Override
     @CachePut(key = "'config'")
@@ -51,14 +49,15 @@ public class EmailServiceImpl implements EmailService {
             // 对称加密
             emailConfig.setPass(EncryptUtils.desEncrypt(emailConfig.getPass()));
         }
-        return emailRepository.save(emailConfig);
+        saveOrUpdate(emailConfig);
+        return emailConfig;
     }
 
     @Override
     @Cacheable(key = "'config'")
     public EmailConfig find() {
-        Optional<EmailConfig> emailConfig = emailRepository.findById(1L);
-        return emailConfig.orElseGet(EmailConfig::new);
+        EmailConfig emailConfig = getById(1L);
+        return emailConfig == null ? new EmailConfig() : emailConfig;
     }
 
     @Override

@@ -24,10 +24,7 @@ import me.zhengjie.modules.system.domain.Menu;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.vo.MenuVo;
 import me.zhengjie.modules.system.service.MenuService;
-import me.zhengjie.modules.system.service.dto.DeptDto;
-import me.zhengjie.modules.system.service.dto.MenuDto;
-import me.zhengjie.modules.system.service.dto.MenuQueryCriteria;
-import me.zhengjie.modules.system.service.mapstruct.MenuMapper;
+import me.zhengjie.modules.system.domain.vo.MenuQueryCriteria;
 import me.zhengjie.utils.PageResult;
 import me.zhengjie.utils.PageUtil;
 import me.zhengjie.utils.SecurityUtils;
@@ -51,7 +48,6 @@ import java.util.stream.Collectors;
 public class MenuController {
 
     private final MenuService menuService;
-    private final MenuMapper menuMapper;
     private static final String ENTITY_NAME = "menu";
 
     @ApiOperation("导出菜单数据")
@@ -64,15 +60,15 @@ public class MenuController {
     @GetMapping(value = "/build")
     @ApiOperation("获取前端所需菜单")
     public ResponseEntity<List<MenuVo>> buildMenus(){
-        List<MenuDto> menuDtoList = menuService.findByUser(SecurityUtils.getCurrentUserId());
-        List<MenuDto> menus = menuService.buildTree(menuDtoList);
+        List<Menu> menuList = menuService.findByUser(SecurityUtils.getCurrentUserId());
+        List<Menu> menus = menuService.buildTree(menuList);
         return new ResponseEntity<>(menuService.buildMenus(menus),HttpStatus.OK);
     }
 
     @ApiOperation("返回全部的菜单")
     @GetMapping(value = "/lazy")
     @PreAuthorize("@el.check('menu:list','roles:list')")
-    public ResponseEntity<List<MenuDto>> queryAllMenu(@RequestParam Long pid){
+    public ResponseEntity<List<Menu>> queryAllMenu(@RequestParam Long pid){
         return new ResponseEntity<>(menuService.getMenus(pid),HttpStatus.OK);
     }
 
@@ -81,9 +77,9 @@ public class MenuController {
     @PreAuthorize("@el.check('menu:list','roles:list')")
     public ResponseEntity<Object> childMenu(@RequestParam Long id){
         Set<Menu> menuSet = new HashSet<>();
-        List<MenuDto> menuList = menuService.getMenus(id);
-        menuSet.add(menuService.findOne(id));
-        menuSet = menuService.getChildMenus(menuMapper.toEntity(menuList), menuSet);
+        List<Menu> menuList = menuService.getMenus(id);
+        menuSet.add(menuService.getById(id));
+        menuSet = menuService.getChildMenus(menuList, menuSet);
         Set<Long> ids = menuSet.stream().map(Menu::getId).collect(Collectors.toSet());
         return new ResponseEntity<>(ids,HttpStatus.OK);
     }
@@ -91,30 +87,30 @@ public class MenuController {
     @GetMapping
     @ApiOperation("查询菜单")
     @PreAuthorize("@el.check('menu:list')")
-    public ResponseEntity<PageResult<MenuDto>> queryMenu(MenuQueryCriteria criteria) throws Exception {
-        List<MenuDto> menuDtoList = menuService.queryAll(criteria, true);
-        return new ResponseEntity<>(PageUtil.toPage(menuDtoList, menuDtoList.size()),HttpStatus.OK);
+    public ResponseEntity<PageResult<Menu>> queryMenu(MenuQueryCriteria criteria) throws Exception {
+        List<Menu> menuList = menuService.queryAll(criteria, true);
+        return new ResponseEntity<>(PageUtil.toPage(menuList),HttpStatus.OK);
     }
 
     @ApiOperation("查询菜单:根据ID获取同级与上级数据")
     @PostMapping("/superior")
     @PreAuthorize("@el.check('menu:list')")
-    public ResponseEntity<List<MenuDto>> getMenuSuperior(@RequestBody List<Long> ids) {
-        Set<MenuDto> menuDtos = new LinkedHashSet<>();
+    public ResponseEntity<List<Menu>> getMenuSuperior(@RequestBody List<Long> ids) {
+        Set<Menu> menus = new LinkedHashSet<>();
         if(CollectionUtil.isNotEmpty(ids)){
             for (Long id : ids) {
-                MenuDto menuDto = menuService.findById(id);
-                List<MenuDto> menuDtoList = menuService.getSuperior(menuDto, new ArrayList<>());
-                for (MenuDto menu : menuDtoList) {
-                    if(menu.getId().equals(menuDto.getPid())) {
-                        menu.setSubCount(menu.getSubCount() - 1);
+                Menu menu = menuService.findById(id);
+                List<Menu> menuList = menuService.getSuperior(menu, new ArrayList<>());
+                for (Menu data : menuList) {
+                    if(data.getId().equals(menu.getPid())) {
+                        data.setSubCount(data.getSubCount() - 1);
                     }
                 }
-                menuDtos.addAll(menuDtoList);
+                menus.addAll(menuList);
             }
             // 编辑菜单时不显示自己以及自己下级的数据，避免出现PID数据环形问题
-            menuDtos = menuDtos.stream().filter(i -> !ids.contains(i.getId())).collect(Collectors.toSet());
-            return new ResponseEntity<>(menuService.buildTree(new ArrayList<>(menuDtos)),HttpStatus.OK);
+            menus = menus.stream().filter(i -> !ids.contains(i.getId())).collect(Collectors.toSet());
+            return new ResponseEntity<>(menuService.buildTree(new ArrayList<>(menus)),HttpStatus.OK);
         }
         return new ResponseEntity<>(menuService.getMenus(null),HttpStatus.OK);
     }
@@ -147,9 +143,9 @@ public class MenuController {
     public ResponseEntity<Object> deleteMenu(@RequestBody Set<Long> ids){
         Set<Menu> menuSet = new HashSet<>();
         for (Long id : ids) {
-            List<MenuDto> menuList = menuService.getMenus(id);
-            menuSet.add(menuService.findOne(id));
-            menuSet = menuService.getChildMenus(menuMapper.toEntity(menuList), menuSet);
+            List<Menu> menuList = menuService.getMenus(id);
+            menuSet.add(menuService.getById(id));
+            menuSet = menuService.getChildMenus(menuList, menuSet);
         }
         menuService.delete(menuSet);
         return new ResponseEntity<>(HttpStatus.OK);

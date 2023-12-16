@@ -20,7 +20,6 @@ import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.Date;

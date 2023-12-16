@@ -15,29 +15,29 @@
  */
 package me.zhengjie.modules.mnt.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseEntity;
-import javax.persistence.*;
 import java.io.Serializable;
 
 /**
 * @author zhanghouying
 * @date 2019-08-24
 */
-@Entity
 @Getter
 @Setter
-@Table(name="mnt_app")
+@TableName("mnt_app")
 public class App extends BaseEntity implements Serializable {
 
-    @Id
-	@Column(name = "app_id")
+    
+	@TableId(value = "app_id", type = IdType.AUTO)
 	@ApiModelProperty(value = "ID", hidden = true)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 	@ApiModelProperty(value = "名称")

@@ -15,6 +15,7 @@
  */
 package me.zhengjie.modules.system.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,10 +23,8 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.Job;
 import me.zhengjie.modules.system.service.JobService;
-import me.zhengjie.modules.system.service.dto.JobDto;
-import me.zhengjie.modules.system.service.dto.JobQueryCriteria;
+import me.zhengjie.modules.system.domain.vo.JobQueryCriteria;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -58,8 +57,8 @@ public class JobController {
     @ApiOperation("查询岗位")
     @GetMapping
     @PreAuthorize("@el.check('job:list','user:list')")
-    public ResponseEntity<PageResult<JobDto>> queryJob(JobQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(jobService.queryAll(criteria, pageable),HttpStatus.OK);
+    public ResponseEntity<PageResult<Job>> queryJob(JobQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(jobService.queryAll(criteria, page),HttpStatus.OK);
     }
 
     @Log("新增岗位")

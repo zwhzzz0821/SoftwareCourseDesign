@@ -15,11 +15,12 @@
  */
 package me.zhengjie.modules.system.service;
 
-import me.zhengjie.utils.PageResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.modules.system.domain.Dict;
-import me.zhengjie.modules.system.service.dto.DictDto;
-import me.zhengjie.modules.system.service.dto.DictQueryCriteria;
-import org.springframework.data.domain.Pageable;
+import me.zhengjie.modules.system.domain.vo.DictQueryCriteria;
+import me.zhengjie.utils.PageResult;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -29,27 +30,27 @@ import java.util.Set;
 * @author Zheng Jie
 * @date 2019-04-10
 */
-public interface DictService {
+public interface DictService extends IService<Dict> {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    PageResult<DictDto> queryAll(DictQueryCriteria criteria, Pageable pageable);
+    PageResult<Dict> queryAll(DictQueryCriteria criteria, Page<Object> page);
 
     /**
      * 查询全部数据
-     * @param dict /
+     * @param criteria /
      * @return /
      */
-    List<DictDto> queryAll(DictQueryCriteria dict);
+    List<Dict> queryAll(DictQueryCriteria criteria);
 
     /**
      * 创建
      * @param resources /
-     * @return /
      */
     void create(Dict resources);
 
@@ -71,5 +72,5 @@ public interface DictService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<DictDto> queryAll, HttpServletResponse response) throws IOException;
+    void download(List<Dict> queryAll, HttpServletResponse response) throws IOException;
 }

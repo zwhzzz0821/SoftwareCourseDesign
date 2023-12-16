@@ -17,18 +17,19 @@ package me.zhengjie.modules.quartz.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import me.zhengjie.modules.quartz.domain.QuartzLog;
-import me.zhengjie.modules.quartz.repository.QuartzJobRepository;
-import me.zhengjie.modules.quartz.repository.QuartzLogRepository;
+import me.zhengjie.modules.quartz.mapper.QuartzJobMapper;
+import me.zhengjie.modules.quartz.mapper.QuartzLogMapper;
 import me.zhengjie.modules.quartz.service.QuartzJobService;
-import me.zhengjie.modules.quartz.service.dto.JobQueryCriteria;
+import me.zhengjie.modules.quartz.domain.vo.QuartzJobQueryCriteria;
 import me.zhengjie.modules.quartz.utils.QuartzManage;
 import me.zhengjie.utils.*;
 import org.quartz.CronExpression;
-import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,38 +43,31 @@ import java.util.*;
  */
 @RequiredArgsConstructor
 @Service(value = "quartzJobService")
-public class QuartzJobServiceImpl implements QuartzJobService {
+public class QuartzJobServiceImpl extends ServiceImpl<QuartzJobMapper, QuartzJob> implements QuartzJobService {
 
-    private final QuartzJobRepository quartzJobRepository;
-    private final QuartzLogRepository quartzLogRepository;
+    private final QuartzJobMapper quartzJobMapper;
+    private final QuartzLogMapper quartzLogMapper;
     private final QuartzManage quartzManage;
     private final RedisUtils redisUtils;
 
     @Override
-    public PageResult<QuartzJob> queryAll(JobQueryCriteria criteria, Pageable pageable){
-        return PageUtil.toPage(quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable));
+    public PageResult<QuartzJob> queryAll(QuartzJobQueryCriteria criteria, Page<Object> page){
+        return PageUtil.toPage(quartzJobMapper.findAll(criteria, page));
     }
 
     @Override
-    public PageResult<QuartzLog> queryAllLog(JobQueryCriteria criteria, Pageable pageable){
-        return PageUtil.toPage(quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable));
+    public PageResult<QuartzLog> queryAllLog(QuartzJobQueryCriteria criteria, Page<Object> page){
+        return PageUtil.toPage(quartzLogMapper.findAll(criteria, page));
     }
 
     @Override
-    public List<QuartzJob> queryAll(JobQueryCriteria criteria) {
-        return quartzJobRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder));
+    public List<QuartzJob> queryAll(QuartzJobQueryCriteria criteria) {
+        return quartzJobMapper.findAll(criteria);
     }
 
     @Override
-    public List<QuartzLog> queryAllLog(JobQueryCriteria criteria) {
-        return quartzLogRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder));
-    }
-
-    @Override
-    public QuartzJob findById(Long id) {
-        QuartzJob quartzJob = quartzJobRepository.findById(id).orElseGet(QuartzJob::new);
-        ValidationUtil.isNull(quartzJob.getId(),"QuartzJob","id",id);
-        return quartzJob;
+    public List<QuartzLog> queryAllLog(QuartzJobQueryCriteria criteria) {
+        return quartzLogMapper.findAll(criteria);
     }
 
     @Override
@@ -82,7 +76,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
         if (!CronExpression.isValidExpression(resources.getCronExpression())){
             throw new BadRequestException("cron表达式格式错误");
         }
-        resources = quartzJobRepository.save(resources);
+        save(resources);
         quartzManage.addJob(resources);
     }
 
@@ -98,11 +92,12 @@ public class QuartzJobServiceImpl implements QuartzJobService {
                 throw new BadRequestException("子任务中不能添加当前任务ID");
             }
         }
-        resources = quartzJobRepository.save(resources);
+        saveOrUpdate(resources);
         quartzManage.updateJobCron(resources);
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateIsPause(QuartzJob quartzJob) {
         if (quartzJob.getIsPause()) {
             quartzManage.resumeJob(quartzJob);
@@ -111,7 +106,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
             quartzManage.pauseJob(quartzJob);
             quartzJob.setIsPause(true);
         }
-        quartzJobRepository.save(quartzJob);
+        saveOrUpdate(quartzJob);
     }
 
     @Override
@@ -123,9 +118,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
     @Transactional(rollbackFor = Exception.class)
     public void delete(Set<Long> ids) {
         for (Long id : ids) {
-            QuartzJob quartzJob = findById(id);
+            QuartzJob quartzJob = getById(id);
             quartzManage.deleteJob(quartzJob);
-            quartzJobRepository.delete(quartzJob);
+            removeById(quartzJob);
         }
     }
 
@@ -138,7 +133,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
                 // 如果是手动清除子任务id，会出现id为空字符串的问题
                 continue;
             }
-            QuartzJob quartzJob = findById(Long.parseLong(id));
+            QuartzJob quartzJob = getById(Long.parseLong(id));
             // 执行任务
             String uuid = IdUtil.simpleUUID();
             quartzJob.setUuid(uuid);

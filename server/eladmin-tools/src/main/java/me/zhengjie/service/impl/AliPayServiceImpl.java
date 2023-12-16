@@ -19,18 +19,18 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.domain.vo.TradeVo;
 import me.zhengjie.domain.AlipayConfig;
 import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.repository.AliPayRepository;
+import me.zhengjie.mapper.AliPayConfigMapper;
 import me.zhengjie.service.AliPayService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
 
 /**
  * @author Zheng Jie
@@ -39,15 +39,13 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "aliPay")
-public class AliPayServiceImpl implements AliPayService {
-
-    private final AliPayRepository alipayRepository;
+public class AliPayServiceImpl extends ServiceImpl<AliPayConfigMapper, AlipayConfig> implements AliPayService {
 
     @Override
     @Cacheable(key = "'config'")
     public AlipayConfig find() {
-        Optional<AlipayConfig> alipayConfig = alipayRepository.findById(1L);
-        return alipayConfig.orElseGet(AlipayConfig::new);
+        AlipayConfig alipayConfig = getById(1L);
+        return alipayConfig == null ? new AlipayConfig() : alipayConfig;
     }
 
     @Override
@@ -55,7 +53,8 @@ public class AliPayServiceImpl implements AliPayService {
     @Transactional(rollbackFor = Exception.class)
     public AlipayConfig config(AlipayConfig alipayConfig) {
         alipayConfig.setId(1L);
-        return alipayRepository.save(alipayConfig);
+        saveOrUpdate(alipayConfig);
+        return alipayConfig;
     }
 
     @Override

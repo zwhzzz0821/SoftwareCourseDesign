@@ -23,8 +23,7 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.Dept;
 import me.zhengjie.modules.system.service.DeptService;
-import me.zhengjie.modules.system.service.dto.DeptDto;
-import me.zhengjie.modules.system.service.dto.DeptQueryCriteria;
+import me.zhengjie.modules.system.domain.vo.DeptQueryCriteria;
 import me.zhengjie.utils.PageResult;
 import me.zhengjie.utils.PageUtil;
 import org.springframework.http.HttpStatus;
@@ -59,9 +58,9 @@ public class DeptController {
     @ApiOperation("查询部门")
     @GetMapping
     @PreAuthorize("@el.check('user:list','dept:list')")
-    public ResponseEntity<PageResult<DeptDto>> queryDept(DeptQueryCriteria criteria) throws Exception {
-        List<DeptDto> depts = deptService.queryAll(criteria, true);
-        return new ResponseEntity<>(PageUtil.toPage(depts, depts.size()),HttpStatus.OK);
+    public ResponseEntity<PageResult<Dept>> queryDept(DeptQueryCriteria criteria) throws Exception {
+        List<Dept> depts = deptService.queryAll(criteria, true);
+        return new ResponseEntity<>(PageUtil.toPage(depts),HttpStatus.OK);
     }
 
     @ApiOperation("查询部门:根据ID获取同级与上级数据")
@@ -69,14 +68,14 @@ public class DeptController {
     @PreAuthorize("@el.check('user:list','dept:list')")
     public ResponseEntity<Object> getDeptSuperior(@RequestBody List<Long> ids,
                                                   @RequestParam(defaultValue = "false") Boolean exclude) {
-        Set<DeptDto> deptSet  = new LinkedHashSet<>();
+        Set<Dept> deptSet  = new LinkedHashSet<>();
         for (Long id : ids) {
-            DeptDto deptDto = deptService.findById(id);
-            List<DeptDto> depts = deptService.getSuperior(deptDto, new ArrayList<>());
+            Dept dept = deptService.findById(id);
+            List<Dept> depts = deptService.getSuperior(dept, new ArrayList<>());
             if(exclude){
-                for (DeptDto dept : depts) {
-                    if(dept.getId().equals(deptDto.getPid())) {
-                        dept.setSubCount(dept.getSubCount() - 1);
+                for (Dept data : depts) {
+                    if(data.getId().equals(dept.getPid())) {
+                        data.setSubCount(data.getSubCount() - 1);
                     }
                 }
                 // 编辑部门时不显示自己以及自己下级的数据，避免出现PID数据环形问题
@@ -113,17 +112,17 @@ public class DeptController {
     @DeleteMapping
     @PreAuthorize("@el.check('dept:del')")
     public ResponseEntity<Object> deleteDept(@RequestBody Set<Long> ids){
-        Set<DeptDto> deptDtos = new HashSet<>();
+        Set<Dept> depts = new HashSet<>();
         for (Long id : ids) {
             List<Dept> deptList = deptService.findByPid(id);
-            deptDtos.add(deptService.findById(id));
+            depts.add(deptService.findById(id));
             if(CollectionUtil.isNotEmpty(deptList)){
-                deptDtos = deptService.getDeleteDepts(deptList, deptDtos);
+                depts = deptService.getDeleteDepts(deptList, depts);
             }
         }
         // 验证是否被角色或用户关联
-        deptService.verification(deptDtos);
-        deptService.delete(deptDtos);
+        deptService.verification(depts);
+        deptService.delete(depts);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

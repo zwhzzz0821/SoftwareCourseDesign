@@ -15,11 +15,11 @@
  */
 package me.zhengjie.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.domain.LocalStorage;
-import me.zhengjie.service.dto.LocalStorageDto;
-import me.zhengjie.service.dto.LocalStorageQueryCriteria;
+import me.zhengjie.domain.vo.LocalStorageQueryCriteria;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -29,35 +29,29 @@ import java.util.List;
 * @author Zheng Jie
 * @date 2019-09-05
 */
-public interface LocalStorageService {
+public interface LocalStorageService extends IService<LocalStorage> {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    PageResult<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria, Pageable pageable);
+    PageResult<LocalStorage> queryAll(LocalStorageQueryCriteria criteria, Page<Object> page);
 
     /**
      * 查询全部数据
      * @param criteria 条件
      * @return /
      */
-    List<LocalStorageDto> queryAll(LocalStorageQueryCriteria criteria);
-
-    /**
-     * 根据ID查询
-     * @param id /
-     * @return /
-     */
-    LocalStorageDto findById(Long id);
+    List<LocalStorage> queryAll(LocalStorageQueryCriteria criteria);
 
     /**
      * 上传
      * @param name 文件名称
      * @param file 文件
-     * @return
+     * @return /
      */
     LocalStorage create(String name, MultipartFile file);
 
@@ -75,9 +69,9 @@ public interface LocalStorageService {
 
     /**
      * 导出数据
-     * @param localStorageDtos 待导出的数据
+     * @param localStorages 待导出的数据
      * @param response /
      * @throws IOException /
      */
-    void download(List<LocalStorageDto> localStorageDtos, HttpServletResponse response) throws IOException;
+    void download(List<LocalStorage> localStorages, HttpServletResponse response) throws IOException;
 }

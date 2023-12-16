@@ -15,21 +15,18 @@
  */
 package me.zhengjie.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.utils.PageResult;
 import me.zhengjie.modules.system.domain.Dict;
 import me.zhengjie.modules.system.domain.DictDetail;
-import me.zhengjie.modules.system.repository.DictRepository;
-import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
+import me.zhengjie.modules.system.mapper.DictMapper;
+import me.zhengjie.modules.system.domain.vo.DictDetailQueryCriteria;
 import me.zhengjie.utils.*;
-import me.zhengjie.modules.system.repository.DictDetailRepository;
+import me.zhengjie.modules.system.mapper.DictDetailMapper;
 import me.zhengjie.modules.system.service.DictDetailService;
-import me.zhengjie.modules.system.service.dto.DictDetailDto;
-import me.zhengjie.modules.system.service.mapstruct.DictDetailMapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -41,23 +38,22 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @CacheConfig(cacheNames = "dict")
-public class DictDetailServiceImpl implements DictDetailService {
+public class DictDetailServiceImpl extends ServiceImpl<DictDetailMapper, DictDetail> implements DictDetailService {
 
-    private final DictRepository dictRepository;
-    private final DictDetailRepository dictDetailRepository;
+    private final DictMapper dictMapper;
     private final DictDetailMapper dictDetailMapper;
     private final RedisUtils redisUtils;
 
     @Override
-    public PageResult<DictDetailDto> queryAll(DictDetailQueryCriteria criteria, Pageable pageable) {
-        Page<DictDetail> page = dictDetailRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
-        return PageUtil.toPage(page.map(dictDetailMapper::toDto));
+    public PageResult<DictDetail> queryAll(DictDetailQueryCriteria criteria, Page<Object> page) {
+        return PageUtil.toPage(dictDetailMapper.findAll(criteria, page));
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void create(DictDetail resources) {
-        dictDetailRepository.save(resources);
+        resources.setDictId(resources.getDict().getId());
+        save(resources);
         // 清理缓存
         delCaches(resources);
     }
@@ -65,31 +61,31 @@ public class DictDetailServiceImpl implements DictDetailService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void update(DictDetail resources) {
-        DictDetail dictDetail = dictDetailRepository.findById(resources.getId()).orElseGet(DictDetail::new);
-        ValidationUtil.isNull( dictDetail.getId(),"DictDetail","id",resources.getId());
+        DictDetail dictDetail = getById(resources.getId());
         resources.setId(dictDetail.getId());
-        dictDetailRepository.save(resources);
+        // 更新数据
+        saveOrUpdate(resources);
         // 清理缓存
-        delCaches(resources);
+        delCaches(dictDetail);
     }
 
     @Override
     @Cacheable(key = "'name:' + #p0")
-    public List<DictDetailDto> getDictByName(String name) {
-        return dictDetailMapper.toDto(dictDetailRepository.findByDictName(name));
+    public List<DictDetail> getDictByName(String name) {
+        return dictDetailMapper.findByDictName(name);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
-        DictDetail dictDetail = dictDetailRepository.findById(id).orElseGet(DictDetail::new);
+        DictDetail dictDetail = getById(id);
+        removeById(id);
         // 清理缓存
         delCaches(dictDetail);
-        dictDetailRepository.deleteById(id);
     }
 
     public void delCaches(DictDetail dictDetail){
-        Dict dict = dictRepository.findById(dictDetail.getDict().getId()).orElseGet(Dict::new);
+        Dict dict = dictMapper.selectById(dictDetail.getDictId());
         redisUtils.del(CacheKey.DICT_NAME + dict.getName());
     }
 }

@@ -15,6 +15,7 @@
  */
 package me.zhengjie.modules.mnt.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -22,12 +23,10 @@ import me.zhengjie.annotation.Log;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.mnt.domain.Database;
 import me.zhengjie.modules.mnt.service.DatabaseService;
-import me.zhengjie.modules.mnt.service.dto.DatabaseDto;
-import me.zhengjie.modules.mnt.service.dto.DatabaseQueryCriteria;
+import me.zhengjie.modules.mnt.domain.vo.DatabaseQueryCriteria;
 import me.zhengjie.modules.mnt.util.SqlUtils;
 import me.zhengjie.utils.FileUtil;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -63,8 +62,8 @@ public class DatabaseController {
     @ApiOperation(value = "查询数据库")
     @GetMapping
 	@PreAuthorize("@el.check('database:list')")
-    public ResponseEntity<PageResult<DatabaseDto>> queryDatabase(DatabaseQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(databaseService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<PageResult<Database>> queryDatabase(DatabaseQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(databaseService.queryAll(criteria, page),HttpStatus.OK);
     }
 
     @Log("新增数据库")
@@ -108,7 +107,7 @@ public class DatabaseController {
 	@PreAuthorize("@el.check('database:add')")
 	public ResponseEntity<Object> uploadDatabase(@RequestBody MultipartFile file, HttpServletRequest request)throws Exception{
 		String id = request.getParameter("id");
-		DatabaseDto database = databaseService.findById(id);
+		Database database = databaseService.getById(id);
 		String fileName;
 		if(database != null){
 			fileName = file.getOriginalFilename();

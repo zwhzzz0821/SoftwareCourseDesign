@@ -15,16 +15,15 @@
  */
 package me.zhengjie.modules.mnt.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
 import me.zhengjie.modules.mnt.domain.App;
 import me.zhengjie.modules.mnt.service.AppService;
-import me.zhengjie.modules.mnt.service.dto.AppDto;
-import me.zhengjie.modules.mnt.service.dto.AppQueryCriteria;
+import me.zhengjie.modules.mnt.domain.vo.AppQueryCriteria;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -56,8 +55,8 @@ public class AppController {
     @ApiOperation(value = "查询应用")
     @GetMapping
 	@PreAuthorize("@el.check('app:list')")
-    public ResponseEntity<PageResult<AppDto>> queryApp(AppQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(appService.queryAll(criteria,pageable),HttpStatus.OK);
+    public ResponseEntity<PageResult<App>> queryApp(AppQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(appService.queryAll(criteria, page),HttpStatus.OK);
     }
 
     @Log("新增应用")

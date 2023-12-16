@@ -15,11 +15,11 @@
  */
 package me.zhengjie.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -27,16 +27,13 @@ import java.sql.Timestamp;
  * @author Zheng Jie
  * @date 2018-11-24
  */
-@Entity
 @Getter
 @Setter
-@Table(name = "sys_log")
 @NoArgsConstructor
-public class SysLog implements Serializable {
+@TableName("sys_log")
+public class SysLog  implements Serializable {
 
-    @Id
-    @Column(name = "log_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId(value = "log_id", type = IdType.AUTO)
     private Long id;
 
     /** 操作用户 */
@@ -67,10 +64,11 @@ public class SysLog implements Serializable {
     private Long time;
 
     /** 异常详细  */
-    private byte[] exceptionDetail;
+    @JSONField(serialize = false)
+    private String exceptionDetail;
 
     /** 创建日期 */
-    @CreationTimestamp
+    @TableField(fill = FieldFill.INSERT)
     private Timestamp createTime;
 
     public SysLog(String logType, Long time) {

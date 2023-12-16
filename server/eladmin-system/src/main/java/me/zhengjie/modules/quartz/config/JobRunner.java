@@ -17,7 +17,7 @@ package me.zhengjie.modules.quartz.config;
 
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
-import me.zhengjie.modules.quartz.repository.QuartzJobRepository;
+import me.zhengjie.modules.quartz.mapper.QuartzJobMapper;
 import me.zhengjie.modules.quartz.utils.QuartzManage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +34,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JobRunner implements ApplicationRunner {
     private static final Logger log = LoggerFactory.getLogger(JobRunner.class);
-    private final QuartzJobRepository quartzJobRepository;
+    private final QuartzJobMapper quartzJobMapper;
     private final QuartzManage quartzManage;
 
     /**
@@ -44,7 +44,7 @@ public class JobRunner implements ApplicationRunner {
      */
     @Override
     public void run(ApplicationArguments applicationArguments) {
-        List<QuartzJob> quartzJobs = quartzJobRepository.findByIsPauseIsFalse();
+        List<QuartzJob> quartzJobs = quartzJobMapper.findByIsPauseIsFalse();
         quartzJobs.forEach(quartzManage::addJob);
         log.info("Timing task injection complete");
     }

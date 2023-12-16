@@ -15,6 +15,7 @@
  */
 package me.zhengjie.modules.quartz.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,9 @@ import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import me.zhengjie.modules.quartz.domain.QuartzLog;
 import me.zhengjie.modules.quartz.service.QuartzJobService;
-import me.zhengjie.modules.quartz.service.dto.JobQueryCriteria;
+import me.zhengjie.modules.quartz.domain.vo.QuartzJobQueryCriteria;
 import me.zhengjie.utils.PageResult;
 import me.zhengjie.utils.SpringContextHolder;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,29 +54,29 @@ public class QuartzJobController {
     @ApiOperation("查询定时任务")
     @GetMapping
     @PreAuthorize("@el.check('timing:list')")
-    public ResponseEntity<PageResult<QuartzJob>> queryQuartzJob(JobQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(quartzJobService.queryAll(criteria,pageable), HttpStatus.OK);
+    public ResponseEntity<PageResult<QuartzJob>> queryQuartzJob(QuartzJobQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(quartzJobService.queryAll(criteria,page), HttpStatus.OK);
     }
 
     @ApiOperation("导出任务数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('timing:list')")
-    public void exportQuartzJob(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
+    public void exportQuartzJob(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
         quartzJobService.download(quartzJobService.queryAll(criteria), response);
     }
 
     @ApiOperation("导出日志数据")
     @GetMapping(value = "/logs/download")
     @PreAuthorize("@el.check('timing:list')")
-    public void exportQuartzJobLog(HttpServletResponse response, JobQueryCriteria criteria) throws IOException {
+    public void exportQuartzJobLog(HttpServletResponse response, QuartzJobQueryCriteria criteria) throws IOException {
         quartzJobService.downloadLog(quartzJobService.queryAllLog(criteria), response);
     }
 
     @ApiOperation("查询任务执行日志")
     @GetMapping(value = "/logs")
     @PreAuthorize("@el.check('timing:list')")
-    public ResponseEntity<PageResult<QuartzLog>> queryQuartzJobLog(JobQueryCriteria criteria, Pageable pageable){
-        return new ResponseEntity<>(quartzJobService.queryAllLog(criteria,pageable), HttpStatus.OK);
+    public ResponseEntity<PageResult<QuartzLog>> queryQuartzJobLog(QuartzJobQueryCriteria criteria, Page<Object> page){
+        return new ResponseEntity<>(quartzJobService.queryAllLog(criteria,page), HttpStatus.OK);
     }
 
     @Log("新增定时任务")
@@ -109,7 +109,7 @@ public class QuartzJobController {
     @PutMapping(value = "/{id}")
     @PreAuthorize("@el.check('timing:edit')")
     public ResponseEntity<Object> updateQuartzJobStatus(@PathVariable Long id){
-        quartzJobService.updateIsPause(quartzJobService.findById(id));
+        quartzJobService.updateIsPause(quartzJobService.getById(id));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -118,7 +118,7 @@ public class QuartzJobController {
     @PutMapping(value = "/exec/{id}")
     @PreAuthorize("@el.check('timing:edit')")
     public ResponseEntity<Object> executionQuartzJob(@PathVariable Long id){
-        quartzJobService.execution(quartzJobService.findById(id));
+        quartzJobService.execution(quartzJobService.getById(id));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

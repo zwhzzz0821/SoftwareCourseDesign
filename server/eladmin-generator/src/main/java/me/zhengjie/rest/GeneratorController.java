@@ -15,6 +15,7 @@
  */
 package me.zhengjie.rest;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -50,25 +51,16 @@ public class GeneratorController {
     private Boolean generatorEnabled;
 
     @ApiOperation("查询数据库数据")
-    @GetMapping(value = "/tables/all")
-    public ResponseEntity<Object> queryAllTables(){
-        return new ResponseEntity<>(generatorService.getTables(), HttpStatus.OK);
-    }
-
-    @ApiOperation("查询数据库数据")
     @GetMapping(value = "/tables")
-    public ResponseEntity<PageResult<TableInfo>> queryTables(@RequestParam(defaultValue = "") String name,
-                                                             @RequestParam(defaultValue = "0")Integer page,
-                                                             @RequestParam(defaultValue = "10")Integer size){
-        int[] startEnd = PageUtil.transToStartEnd(page, size);
-        return new ResponseEntity<>(generatorService.getTables(name,startEnd), HttpStatus.OK);
+    public ResponseEntity<PageResult<TableInfo>> queryTables(@RequestParam(defaultValue = "") String name, Page<Object> page){
+        return new ResponseEntity<>(generatorService.getTables(name, page), HttpStatus.OK);
     }
 
     @ApiOperation("查询字段数据")
     @GetMapping(value = "/columns")
     public ResponseEntity<PageResult<ColumnInfo>> queryColumns(@RequestParam String tableName){
         List<ColumnInfo> columnInfos = generatorService.getColumns(tableName);
-        return new ResponseEntity<>(PageUtil.toPage(columnInfos,columnInfos.size()), HttpStatus.OK);
+        return new ResponseEntity<>(PageUtil.toPage(columnInfos), HttpStatus.OK);
     }
 
     @ApiOperation("保存字段数据")

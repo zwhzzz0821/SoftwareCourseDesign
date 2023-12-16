@@ -22,7 +22,7 @@ import cn.hutool.extra.template.TemplateUtil;
 import me.zhengjie.domain.vo.EmailVo;
 import me.zhengjie.modules.quartz.domain.QuartzJob;
 import me.zhengjie.modules.quartz.domain.QuartzLog;
-import me.zhengjie.modules.quartz.repository.QuartzLogRepository;
+import me.zhengjie.modules.quartz.mapper.QuartzLogMapper;
 import me.zhengjie.modules.quartz.service.QuartzJobService;
 import me.zhengjie.service.EmailService;
 import me.zhengjie.utils.RedisUtils;
@@ -56,7 +56,7 @@ public class ExecutionJob extends QuartzJobBean {
         // 获取任务
         QuartzJob quartzJob = (QuartzJob) context.getMergedJobDataMap().get(QuartzJob.JOB_KEY);
         // 获取spring bean
-        QuartzLogRepository quartzLogRepository = SpringContextHolder.getBean(QuartzLogRepository.class);
+        QuartzLogMapper quartzLogMapper = SpringContextHolder.getBean(QuartzLogMapper.class);
         QuartzJobService quartzJobService = SpringContextHolder.getBean(QuartzJobService.class);
         RedisUtils redisUtils = SpringContextHolder.getBean(RedisUtils.class);
 
@@ -113,7 +113,7 @@ public class ExecutionJob extends QuartzJobBean {
                 }
             }
         } finally {
-            quartzLogRepository.save(log);
+            quartzLogMapper.insert(log);
         }
     }
 

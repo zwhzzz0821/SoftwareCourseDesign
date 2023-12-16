@@ -15,12 +15,12 @@
  */
 package me.zhengjie.modules.mnt.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.modules.mnt.domain.Deploy;
 import me.zhengjie.modules.mnt.domain.DeployHistory;
-import me.zhengjie.modules.mnt.service.dto.DeployDto;
-import me.zhengjie.modules.mnt.service.dto.DeployQueryCriteria;
+import me.zhengjie.modules.mnt.domain.vo.DeployQueryCriteria;
 import me.zhengjie.utils.PageResult;
-import org.springframework.data.domain.Pageable;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,29 +31,23 @@ import java.util.Set;
 * @author zhanghouying
 * @date 2019-08-24
 */
-public interface DeployService {
+public interface DeployService extends IService<Deploy> {
 
     /**
      * 分页查询
+     *
      * @param criteria 条件
-     * @param pageable 分页参数
+     * @param page     分页参数
      * @return /
      */
-    PageResult<DeployDto> queryAll(DeployQueryCriteria criteria, Pageable pageable);
+    PageResult<Deploy> queryAll(DeployQueryCriteria criteria, Page<Object> page);
 
     /**
      * 查询全部数据
      * @param criteria 条件
      * @return /
      */
-    List<DeployDto> queryAll(DeployQueryCriteria criteria);
-
-    /**
-     * 根据ID查询
-     * @param id /
-     * @return /
-     */
-    DeployDto findById(Long id);
+    List<Deploy> queryAll(DeployQueryCriteria criteria);
 
     /**
      * 创建
@@ -113,5 +107,5 @@ public interface DeployService {
      * @param response /
      * @throws IOException /
      */
-    void download(List<DeployDto> queryAll, HttpServletResponse response) throws IOException;
+    void download(List<Deploy> queryAll, HttpServletResponse response) throws IOException;
 }

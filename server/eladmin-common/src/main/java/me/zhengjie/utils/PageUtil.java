@@ -15,7 +15,7 @@
  */
 package me.zhengjie.utils;
 
-import org.springframework.data.domain.Page;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.*;
 
 /**
@@ -41,17 +41,17 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
     }
 
     /**
-     * Page 数据处理，预防redis反序列化报错
+     * Page 数据处理
      */
-    public static <T> PageResult<T> toPage(Page<T> page) {
-        return new PageResult<>(page.getContent(), page.getTotalElements());
+    public static <T> PageResult<T> toPage(IPage<T> page) {
+        return new PageResult<>(page.getRecords(), page.getTotal());
     }
 
     /**
      * 自定义分页
      */
-    public static <T> PageResult<T> toPage(List<T> list, long totalElements) {
-        return new PageResult<>(list, totalElements);
+    public static <T> PageResult<T> toPage(List<T> list) {
+        return new PageResult<>(list, list.size());
     }
 
     /**
@@ -59,5 +59,12 @@ public class PageUtil extends cn.hutool.core.util.PageUtil {
      */
     public static <T> PageResult<T> noData () {
         return new PageResult<>(null, 0);
+    }
+
+    /**
+     * 自定义分页
+     */
+    public static <T> PageResult<T> toPage(List<T> list, long totalElements) {
+        return new PageResult<>(list, totalElements);
     }
 }

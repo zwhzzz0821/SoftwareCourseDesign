@@ -16,27 +16,25 @@
 package me.zhengjie.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.annotation.Log;
-import me.zhengjie.utils.PageResult;
 import me.zhengjie.config.RsaProperties;
 import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.domain.Role;
 import me.zhengjie.modules.system.service.DataService;
 import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.modules.system.domain.vo.UserPassVo;
 import me.zhengjie.modules.system.service.DeptService;
 import me.zhengjie.modules.system.service.RoleService;
-import me.zhengjie.modules.system.service.dto.RoleSmallDto;
-import me.zhengjie.modules.system.service.dto.UserDto;
-import me.zhengjie.modules.system.service.dto.UserQueryCriteria;
+import me.zhengjie.modules.system.domain.vo.UserQueryCriteria;
 import me.zhengjie.modules.system.service.VerifyService;
 import me.zhengjie.utils.*;
 import me.zhengjie.modules.system.service.UserService;
 import me.zhengjie.utils.enums.CodeEnum;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -78,7 +76,7 @@ public class UserController {
     @ApiOperation("查询用户")
     @GetMapping
     @PreAuthorize("@el.check('user:list')")
-    public ResponseEntity<PageResult<UserDto>> queryUser(UserQueryCriteria criteria, Pageable pageable){
+    public ResponseEntity<PageResult<User>> queryUser(UserQueryCriteria criteria, Page<Object> page){
         if (!ObjectUtils.isEmpty(criteria.getDeptId())) {
             criteria.getDeptIds().add(criteria.getDeptId());
             // 先查找是否存在子节点
@@ -93,12 +91,12 @@ public class UserController {
             // 取交集
             criteria.getDeptIds().retainAll(dataScopes);
             if(!CollectionUtil.isEmpty(criteria.getDeptIds())){
-                return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+                return new ResponseEntity<>(userService.queryAll(criteria,page),HttpStatus.OK);
             }
         } else {
             // 否则取并集
             criteria.getDeptIds().addAll(dataScopes);
-            return new ResponseEntity<>(userService.queryAll(criteria,pageable),HttpStatus.OK);
+            return new ResponseEntity<>(userService.queryAll(criteria,page),HttpStatus.OK);
         }
         return new ResponseEntity<>(PageUtil.noData(),HttpStatus.OK);
     }
@@ -142,8 +140,8 @@ public class UserController {
     @PreAuthorize("@el.check('user:del')")
     public ResponseEntity<Object> deleteUser(@RequestBody Set<Long> ids){
         for (Long id : ids) {
-            Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
-            Integer optLevel =  Collections.min(roleService.findByUsersId(id).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
+            Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(Role::getLevel).collect(Collectors.toList()));
+            Integer optLevel =  Collections.min(roleService.findByUsersId(id).stream().map(Role::getLevel).collect(Collectors.toList()));
             if (currentLevel > optLevel) {
                 throw new BadRequestException("角色权限不足，不能删除：" + userService.findById(id).getUsername());
             }
@@ -157,7 +155,7 @@ public class UserController {
     public ResponseEntity<Object> updateUserPass(@RequestBody UserPassVo passVo) throws Exception {
         String oldPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getOldPass());
         String newPass = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,passVo.getNewPass());
-        UserDto user = userService.findByName(SecurityUtils.getCurrentUsername());
+        User user = userService.findByName(SecurityUtils.getCurrentUsername());
         if(!passwordEncoder.matches(oldPass, user.getPassword())){
             throw new BadRequestException("修改失败，旧密码错误");
         }
@@ -185,14 +183,14 @@ public class UserController {
     @Log("修改邮箱")
     @ApiOperation("修改邮箱")
     @PostMapping(value = "/updateEmail/{code}")
-    public ResponseEntity<Object> updateUserEmail(@PathVariable String code,@RequestBody User user) throws Exception {
-        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,user.getPassword());
-        UserDto userDto = userService.findByName(SecurityUtils.getCurrentUsername());
-        if(!passwordEncoder.matches(password, userDto.getPassword())){
+    public ResponseEntity<Object> updateUserEmail(@PathVariable String code, @RequestBody User resources) throws Exception {
+        String password = RsaUtils.decryptByPrivateKey(RsaProperties.privateKey,resources.getPassword());
+        User user = userService.findByName(SecurityUtils.getCurrentUsername());
+        if(!passwordEncoder.matches(password, user.getPassword())){
             throw new BadRequestException("密码错误");
         }
         verificationCodeService.validated(CodeEnum.EMAIL_RESET_EMAIL_CODE.getKey() + user.getEmail(), code);
-        userService.updateEmail(userDto.getUsername(),user.getEmail());
+        userService.updateEmail(user.getUsername(),user.getEmail());
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -201,7 +199,7 @@ public class UserController {
      * @param resources /
      */
     private void checkLevel(User resources) {
-        Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(RoleSmallDto::getLevel).collect(Collectors.toList()));
+        Integer currentLevel =  Collections.min(roleService.findByUsersId(SecurityUtils.getCurrentUserId()).stream().map(Role::getLevel).collect(Collectors.toList()));
         Integer optLevel = roleService.findByRoles(resources.getRoles());
         if (currentLevel > optLevel) {
             throw new BadRequestException("角色权限不足");

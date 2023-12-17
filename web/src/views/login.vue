@@ -2,7 +2,7 @@
   <div class="login" :style="'background-image:url('+ Background +');'">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
       <h3 class="title">
-        Yukimi 超市后台管理系统
+        Yukimi 小吃街后台管理系统
       </h3>
       <el-form-item prop="username">
         <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
@@ -33,11 +33,11 @@
       </el-form-item>
     </el-form>
     <!--  底部  -->
-    <div v-if="$store.state.settings.showFooter" id="el-login-footer">
-      <span v-html="$store.state.settings.footerTxt" />
+    <!-- <div v-if="$store.state.settings.showFooter" id="el-login-footer">
+      <span v-html="qwq" />
       <span v-if="$store.state.settings.caseNumber"> ⋅ </span>
       <a href="https://beian.miit.gov.cn/#/Integrated/index" target="_blank">{{ $store.state.settings.caseNumber }}</a>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -47,7 +47,7 @@ import Config from '@/settings'
 import { getCodeImg } from '@/api/login'
 import Cookies from 'js-cookie'
 import qs from 'qs'
-import Background from '@/assets/images/YukimiBackGround.jpg'
+import Background from '@/assets/images/qwqagain.jpg'
 export default {
   name: 'Login',
   data() {
@@ -168,6 +168,7 @@ export default {
 </script>
 
 <style rel="stylesheet/scss" lang="scss">
+
   .login {
     display: flex;
     justify-content: center;
@@ -182,10 +183,12 @@ export default {
   }
 
   .login-form {
+    font-size: 18px;
     border-radius: 6px;
     background: #ffffff;
     position: relative;
-    left: 350px;
+    left: 500px;
+    top: 50px;
     width: 385px;
     padding: 25px 25px 5px 25px;
     .el-input {
@@ -197,6 +200,11 @@ export default {
     .input-icon{
       height: 39px;width: 14px;margin-left: 2px;
     }
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+  .login-form .el-input {
+    font-size: 16px;
+    margin-bottom: 15px;
   }
   .login-tip {
     font-size: 13px;
@@ -212,5 +220,13 @@ export default {
       cursor: pointer;
       vertical-align:middle
     }
+  }
+  .login-code img {
+    cursor: pointer;
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
 </style>

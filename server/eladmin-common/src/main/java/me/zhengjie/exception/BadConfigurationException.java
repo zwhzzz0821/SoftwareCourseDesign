@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.zhengjie.exception;
+package me.Yukimi_Ywx.exception;
 
 /**
  * 统一关于错误配置信息 异常

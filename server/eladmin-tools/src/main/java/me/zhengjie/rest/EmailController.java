@@ -13,15 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.rest;
+package me.Yukimi_Ywx.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.annotation.Log;
-import me.zhengjie.domain.vo.EmailVo;
-import me.zhengjie.domain.EmailConfig;
-import me.zhengjie.service.EmailService;
+import me.Yukimi_Ywx.annotation.Log;
+import me.Yukimi_Ywx.domain.vo.EmailVo;
+import me.Yukimi_Ywx.domain.EmailConfig;
+import me.Yukimi_Ywx.service.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

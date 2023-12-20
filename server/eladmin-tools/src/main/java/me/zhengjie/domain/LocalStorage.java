@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.domain;
+package me.Yukimi_Ywx.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -22,7 +22,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
-import me.zhengjie.base.BaseEntity;
+import me.Yukimi_Ywx.base.BaseEntity;
 import java.io.Serializable;
 
 /**

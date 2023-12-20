@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.Yukimi_Ywx.service.impl;
 
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
@@ -21,11 +21,11 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.vo.TradeVo;
-import me.zhengjie.domain.AlipayConfig;
-import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.mapper.AliPayConfigMapper;
-import me.zhengjie.service.AliPayService;
+import me.Yukimi_Ywx.domain.vo.TradeVo;
+import me.Yukimi_Ywx.domain.AlipayConfig;
+import me.Yukimi_Ywx.exception.BadRequestException;
+import me.Yukimi_Ywx.mapper.AliPayConfigMapper;
+import me.Yukimi_Ywx.service.AliPayService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

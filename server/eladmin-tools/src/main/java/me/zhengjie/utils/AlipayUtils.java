@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.utils;
+package me.Yukimi_Ywx.utils;
 
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
-import me.zhengjie.domain.AlipayConfig;
+import me.Yukimi_Ywx.domain.AlipayConfig;
 import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;

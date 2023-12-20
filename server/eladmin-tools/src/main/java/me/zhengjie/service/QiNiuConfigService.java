@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service;
+package me.Yukimi_Ywx.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.zhengjie.domain.QiniuConfig;
+import me.Yukimi_Ywx.domain.QiniuConfig;
 
 /**
  * @author Zheng Jie

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.config;
+package me.Yukimi_Ywx.config;
 
 import cn.hutool.core.lang.Assert;
 import com.alibaba.fastjson.JSON;
@@ -81,13 +81,13 @@ public class RedisConfig extends CachingConfigurerSupport {
         template.setValueSerializer(fastJsonRedisSerializer);
         template.setHashValueSerializer(fastJsonRedisSerializer);
         // fastjson 升级到 1.2.83 后需要指定序列化白名单
-        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.Yukimi_Ywx.domain");
         // 模块内的实体类
-        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.mnt.domain");
-        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.quartz.domain");
-        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.system.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.Yukimi_Ywx.modules.mnt.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.Yukimi_Ywx.modules.quartz.domain");
+        ParserConfig.getGlobalInstance().addAccept("me.Yukimi_Ywx.modules.system.domain");
         // 模块内的 Dto
-        ParserConfig.getGlobalInstance().addAccept("me.zhengjie.modules.security.service.dto");
+        ParserConfig.getGlobalInstance().addAccept("me.Yukimi_Ywx.modules.security.service.dto");
         // key的序列化采用StringRedisSerializer
         template.setKeySerializer(new StringRedisSerializer());
         template.setHashKeySerializer(new StringRedisSerializer());

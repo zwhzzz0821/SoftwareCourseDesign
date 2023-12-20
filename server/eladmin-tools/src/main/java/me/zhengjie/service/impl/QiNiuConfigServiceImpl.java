@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.Yukimi_Ywx.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.QiniuConfig;
-import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.mapper.QiniuConfigMapper;
-import me.zhengjie.service.QiNiuConfigService;
+import me.Yukimi_Ywx.domain.QiniuConfig;
+import me.Yukimi_Ywx.exception.BadRequestException;
+import me.Yukimi_Ywx.mapper.QiniuConfigMapper;
+import me.Yukimi_Ywx.service.QiNiuConfigService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;

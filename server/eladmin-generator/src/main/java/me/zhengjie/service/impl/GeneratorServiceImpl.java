@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.Yukimi_Ywx.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ZipUtil;
@@ -21,13 +21,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
-import me.zhengjie.domain.vo.TableInfo;
-import me.zhengjie.exception.BadRequestException;
-import me.zhengjie.mapper.ColumnInfoMapper;
-import me.zhengjie.service.GeneratorService;
-import me.zhengjie.utils.*;
+import me.Yukimi_Ywx.domain.GenConfig;
+import me.Yukimi_Ywx.domain.ColumnInfo;
+import me.Yukimi_Ywx.domain.vo.TableInfo;
+import me.Yukimi_Ywx.exception.BadRequestException;
+import me.Yukimi_Ywx.mapper.ColumnInfoMapper;
+import me.Yukimi_Ywx.service.GeneratorService;
+import me.Yukimi_Ywx.utils.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

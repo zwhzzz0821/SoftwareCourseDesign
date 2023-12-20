@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.config.mybatis;
+package me.Yukimi_Ywx.config.mybatis;
 
 import cn.hutool.core.date.DateTime;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import me.zhengjie.utils.SecurityUtils;
+import me.Yukimi_Ywx.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
 import java.sql.Timestamp;

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.exception;
+package me.Yukimi_Ywx.exception;
 
 import org.springframework.util.StringUtils;
 

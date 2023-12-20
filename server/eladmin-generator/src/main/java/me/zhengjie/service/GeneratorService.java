@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service;
+package me.Yukimi_Ywx.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
-import me.zhengjie.domain.vo.TableInfo;
-import me.zhengjie.utils.PageResult;
+import me.Yukimi_Ywx.domain.GenConfig;
+import me.Yukimi_Ywx.domain.ColumnInfo;
+import me.Yukimi_Ywx.domain.vo.TableInfo;
+import me.Yukimi_Ywx.utils.PageResult;
 import org.springframework.http.ResponseEntity;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

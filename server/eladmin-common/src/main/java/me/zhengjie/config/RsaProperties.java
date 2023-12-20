@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.config;
+package me.Yukimi_Ywx.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

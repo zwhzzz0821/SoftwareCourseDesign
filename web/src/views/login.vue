@@ -187,7 +187,7 @@ export default {
     border-radius: 6px;
     background: #ffffff;
     position: relative;
-    left: 500px;
+    left: 350px;
     top: 50px;
     width: 385px;
     padding: 25px 25px 5px 25px;

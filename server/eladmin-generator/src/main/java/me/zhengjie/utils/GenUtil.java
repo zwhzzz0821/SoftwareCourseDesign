@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.utils;
+package me.Yukimi_Ywx.utils;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.template.*;
 import lombok.extern.slf4j.Slf4j;
-import me.zhengjie.domain.GenConfig;
-import me.zhengjie.domain.ColumnInfo;
+import me.Yukimi_Ywx.domain.GenConfig;
+import me.Yukimi_Ywx.domain.ColumnInfo;
 import org.springframework.util.ObjectUtils;
 import java.io.File;
 import java.io.FileWriter;
@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDate;
 import java.util.*;
-import static me.zhengjie.utils.FileUtil.SYS_TEM_DIR;
+import static me.Yukimi_Ywx.utils.FileUtil.SYS_TEM_DIR;
 
 /**
  * 代码生成

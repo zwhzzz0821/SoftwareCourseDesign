@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.service.impl;
+package me.Yukimi_Ywx.service.impl;
 
 import cn.hutool.core.lang.Dict;
 import com.alibaba.fastjson.JSON;
@@ -21,11 +21,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.SysLog;
-import me.zhengjie.mapper.SysLogMapper;
-import me.zhengjie.service.SysLogService;
-import me.zhengjie.domain.vo.SysLogQueryCriteria;
-import me.zhengjie.utils.*;
+import me.Yukimi_Ywx.domain.SysLog;
+import me.Yukimi_Ywx.mapper.SysLogMapper;
+import me.Yukimi_Ywx.service.SysLogService;
+import me.Yukimi_Ywx.domain.vo.SysLogQueryCriteria;
+import me.Yukimi_Ywx.utils.*;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Service;
@@ -71,7 +71,7 @@ public class SysLogServiceImpl extends ServiceImpl<SysLogMapper, SysLog> impleme
         }
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        me.zhengjie.annotation.Log aopLog = method.getAnnotation(me.zhengjie.annotation.Log.class);
+        me.Yukimi_Ywx.annotation.Log aopLog = method.getAnnotation(me.Yukimi_Ywx.annotation.Log.class);
 
         // 方法路径
         String methodName = joinPoint.getTarget().getClass().getName() + "." + signature.getName() + "()";

@@ -6,6 +6,7 @@
  * @param {string} path
  * @returns {Boolean}
  */
+//正则表达式判断各个量是否正确
 export function isExternal(path) {
   return /^(https?:|mailto:|tel:)/.test(path)
 }

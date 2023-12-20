@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.zhengjie.mapper;
+package me.Yukimi_Ywx.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import me.zhengjie.domain.SysLog;
-import me.zhengjie.domain.vo.SysLogQueryCriteria;
+import me.Yukimi_Ywx.domain.SysLog;
+import me.Yukimi_Ywx.domain.vo.SysLogQueryCriteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

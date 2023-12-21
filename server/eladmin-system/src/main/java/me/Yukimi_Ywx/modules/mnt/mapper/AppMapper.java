@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.mnt.mapper;
+package me.zhengjie.modules.mnt.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import me.Yukimi_Ywx.modules.mnt.domain.App;
-import me.Yukimi_Ywx.modules.mnt.domain.vo.AppQueryCriteria;
+import me.zhengjie.modules.mnt.domain.App;
+import me.zhengjie.modules.mnt.domain.vo.AppQueryCriteria;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

@@ -13,15 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.config;
+package me.zhengjie.modules.security.config;
 
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.AnonymousAccess;
-import me.Yukimi_Ywx.modules.security.config.bean.SecurityProperties;
-import me.Yukimi_Ywx.modules.security.security.*;
-import me.Yukimi_Ywx.modules.security.service.OnlineUserService;
-import me.Yukimi_Ywx.modules.security.service.UserCacheManager;
-import me.Yukimi_Ywx.utils.enums.RequestMethodEnum;
+import me.zhengjie.annotation.AnonymousAccess;
+import me.zhengjie.modules.security.config.bean.SecurityProperties;
+import me.zhengjie.modules.security.security.*;
+import me.zhengjie.modules.security.service.OnlineUserService;
+import me.zhengjie.modules.security.service.UserCacheManager;
+import me.zhengjie.utils.enums.RequestMethodEnum;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

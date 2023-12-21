@@ -1,4 +1,4 @@
-package me.Yukimi_Ywx.utils;
+package me.zhengjie.utils;
 
 import lombok.AccessLevel;
 import lombok.Getter;

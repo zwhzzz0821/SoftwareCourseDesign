@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.mnt.websocket;
+package me.zhengjie.modules.mnt.websocket;
 
 import lombok.Data;
 

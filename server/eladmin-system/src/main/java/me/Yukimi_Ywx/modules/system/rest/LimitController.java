@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import me.Yukimi_Ywx.annotation.Limit;
-import me.Yukimi_Ywx.annotation.rest.AnonymousGetMapping;
+import me.zhengjie.annotation.Limit;
+import me.zhengjie.annotation.rest.AnonymousGetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

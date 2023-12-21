@@ -13,17 +13,17 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.mnt.rest;
+package me.zhengjie.modules.mnt.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.modules.mnt.domain.App;
-import me.Yukimi_Ywx.modules.mnt.service.AppService;
-import me.Yukimi_Ywx.modules.mnt.domain.vo.AppQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.modules.mnt.domain.App;
+import me.zhengjie.modules.mnt.service.AppService;
+import me.zhengjie.modules.mnt.domain.vo.AppQueryCriteria;
+import me.zhengjie.utils.PageResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

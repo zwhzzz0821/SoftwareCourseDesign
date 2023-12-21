@@ -13,18 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service.impl;
+package me.zhengjie.service.impl;
 
 import cn.hutool.extra.mail.Mail;
 import cn.hutool.extra.mail.MailAccount;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.domain.EmailConfig;
-import me.Yukimi_Ywx.domain.vo.EmailVo;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.mapper.EmailConfigMapper;
-import me.Yukimi_Ywx.service.EmailService;
-import me.Yukimi_Ywx.utils.EncryptUtils;
+import me.zhengjie.domain.EmailConfig;
+import me.zhengjie.domain.vo.EmailVo;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.mapper.EmailConfigMapper;
+import me.zhengjie.service.EmailService;
+import me.zhengjie.utils.EncryptUtils;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

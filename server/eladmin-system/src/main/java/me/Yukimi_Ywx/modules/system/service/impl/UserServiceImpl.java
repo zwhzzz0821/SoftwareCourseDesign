@@ -13,26 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.config.FileProperties;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.security.service.OnlineUserService;
-import me.Yukimi_Ywx.modules.security.service.UserCacheManager;
-import me.Yukimi_Ywx.modules.system.domain.Job;
-import me.Yukimi_Ywx.modules.system.domain.Role;
-import me.Yukimi_Ywx.modules.system.domain.User;
-import me.Yukimi_Ywx.exception.EntityExistException;
-import me.Yukimi_Ywx.exception.EntityNotFoundException;
-import me.Yukimi_Ywx.modules.system.domain.vo.UserQueryCriteria;
-import me.Yukimi_Ywx.modules.system.mapper.UserJobMapper;
-import me.Yukimi_Ywx.modules.system.mapper.UserMapper;
-import me.Yukimi_Ywx.modules.system.mapper.UserRoleMapper;
-import me.Yukimi_Ywx.modules.system.service.UserService;
-import me.Yukimi_Ywx.utils.*;
+import me.zhengjie.config.FileProperties;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.security.service.OnlineUserService;
+import me.zhengjie.modules.security.service.UserCacheManager;
+import me.zhengjie.modules.system.domain.Job;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.modules.system.domain.User;
+import me.zhengjie.exception.EntityExistException;
+import me.zhengjie.exception.EntityNotFoundException;
+import me.zhengjie.modules.system.domain.vo.UserQueryCriteria;
+import me.zhengjie.modules.system.mapper.UserJobMapper;
+import me.zhengjie.modules.system.mapper.UserMapper;
+import me.zhengjie.modules.system.mapper.UserRoleMapper;
+import me.zhengjie.modules.system.service.UserService;
+import me.zhengjie.utils.*;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

@@ -13,16 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.domain.vo.EmailVo;
-import me.Yukimi_Ywx.service.EmailService;
-import me.Yukimi_Ywx.modules.system.service.VerifyService;
-import me.Yukimi_Ywx.utils.enums.CodeBiEnum;
-import me.Yukimi_Ywx.utils.enums.CodeEnum;
+import me.zhengjie.domain.vo.EmailVo;
+import me.zhengjie.service.EmailService;
+import me.zhengjie.modules.system.service.VerifyService;
+import me.zhengjie.utils.enums.CodeBiEnum;
+import me.zhengjie.utils.enums.CodeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

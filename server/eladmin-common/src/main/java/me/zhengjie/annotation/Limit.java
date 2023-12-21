@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.annotation;
+package me.zhengjie.annotation;
 
-import me.Yukimi_Ywx.aspect.LimitType;
+import me.zhengjie.aspect.LimitType;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

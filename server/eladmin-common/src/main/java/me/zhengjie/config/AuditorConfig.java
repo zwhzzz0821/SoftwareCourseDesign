@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.config;
+package me.zhengjie.config;
 
-import me.Yukimi_Ywx.utils.SecurityUtils;
+import me.zhengjie.utils.SecurityUtils;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 import java.util.Optional;

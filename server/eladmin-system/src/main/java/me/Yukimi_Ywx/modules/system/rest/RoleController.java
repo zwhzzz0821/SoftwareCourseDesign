@@ -13,20 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import cn.hutool.core.lang.Dict;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.modules.system.domain.Role;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.service.RoleService;
-import me.Yukimi_Ywx.modules.system.domain.vo.RoleQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
-import me.Yukimi_Ywx.utils.SecurityUtils;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.service.RoleService;
+import me.zhengjie.modules.system.domain.vo.RoleQueryCriteria;
+import me.zhengjie.utils.PageResult;
+import me.zhengjie.utils.SecurityUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

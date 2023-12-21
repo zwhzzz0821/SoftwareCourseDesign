@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.service.dto;
+package me.zhengjie.modules.security.service.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import me.Yukimi_Ywx.modules.system.domain.User;
+import me.zhengjie.modules.system.domain.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.List;
 import java.util.Set;

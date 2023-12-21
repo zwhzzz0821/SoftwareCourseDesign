@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service.impl;
+package me.zhengjie.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.domain.GenConfig;
-import me.Yukimi_Ywx.mapper.GenConfigMapper;
-import me.Yukimi_Ywx.service.GenConfigService;
+import me.zhengjie.domain.GenConfig;
+import me.zhengjie.mapper.GenConfigMapper;
+import me.zhengjie.service.GenConfigService;
 import org.springframework.stereotype.Service;
 import java.io.File;
 

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.config.bean;
+package me.zhengjie.modules.security.config.bean;
 
 import com.wf.captcha.*;
 import com.wf.captcha.base.Captcha;
 import lombok.Data;
-import me.Yukimi_Ywx.exception.BadConfigurationException;
-import me.Yukimi_Ywx.utils.StringUtils;
+import me.zhengjie.exception.BadConfigurationException;
+import me.zhengjie.utils.StringUtils;
 import java.awt.*;
 import java.util.Objects;
 

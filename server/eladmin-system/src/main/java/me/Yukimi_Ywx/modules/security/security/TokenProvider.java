@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.security;
+package me.zhengjie.modules.security.security;
 
 import cn.hutool.core.date.DateField;
 import cn.hutool.core.date.DateUtil;
@@ -23,8 +23,8 @@ import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.modules.security.config.bean.SecurityProperties;
-import me.Yukimi_Ywx.utils.RedisUtils;
+import me.zhengjie.modules.security.config.bean.SecurityProperties;
+import me.zhengjie.utils.RedisUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

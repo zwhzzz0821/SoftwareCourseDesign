@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service;
+package me.zhengjie.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.Yukimi_Ywx.domain.SysLog;
-import me.Yukimi_Ywx.domain.vo.SysLogQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.domain.SysLog;
+import me.zhengjie.domain.vo.SysLogQueryCriteria;
+import me.zhengjie.utils.PageResult;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.springframework.scheduling.annotation.Async;
 import javax.servlet.http.HttpServletResponse;

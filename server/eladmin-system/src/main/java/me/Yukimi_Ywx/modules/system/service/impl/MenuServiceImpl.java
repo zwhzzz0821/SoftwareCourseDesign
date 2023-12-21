@@ -13,26 +13,26 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.modules.system.domain.Menu;
-import me.Yukimi_Ywx.modules.system.domain.Role;
-import me.Yukimi_Ywx.modules.system.domain.User;
-import me.Yukimi_Ywx.modules.system.domain.vo.MenuMetaVo;
-import me.Yukimi_Ywx.modules.system.domain.vo.MenuVo;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.exception.EntityExistException;
-import me.Yukimi_Ywx.modules.system.mapper.MenuMapper;
-import me.Yukimi_Ywx.modules.system.mapper.RoleMenuMapper;
-import me.Yukimi_Ywx.modules.system.mapper.UserMapper;
-import me.Yukimi_Ywx.modules.system.service.MenuService;
-import me.Yukimi_Ywx.modules.system.service.RoleService;
-import me.Yukimi_Ywx.modules.system.domain.vo.MenuQueryCriteria;
-import me.Yukimi_Ywx.utils.*;
+import me.zhengjie.modules.system.domain.Menu;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.modules.system.domain.User;
+import me.zhengjie.modules.system.domain.vo.MenuMetaVo;
+import me.zhengjie.modules.system.domain.vo.MenuVo;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.exception.EntityExistException;
+import me.zhengjie.modules.system.mapper.MenuMapper;
+import me.zhengjie.modules.system.mapper.RoleMenuMapper;
+import me.zhengjie.modules.system.mapper.UserMapper;
+import me.zhengjie.modules.system.service.MenuService;
+import me.zhengjie.modules.system.service.RoleService;
+import me.zhengjie.modules.system.domain.vo.MenuQueryCriteria;
+import me.zhengjie.utils.*;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

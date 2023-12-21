@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.exception.handler;
+package me.zhengjie.exception.handler;
 
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.exception.EntityExistException;
-import me.Yukimi_Ywx.exception.EntityNotFoundException;
-import me.Yukimi_Ywx.utils.ThrowableUtil;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.exception.EntityExistException;
+import me.zhengjie.exception.EntityNotFoundException;
+import me.zhengjie.utils.ThrowableUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -13,9 +13,9 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service;
+package me.zhengjie.modules.system.service;
 
-import me.Yukimi_Ywx.modules.system.domain.User;
+import me.zhengjie.modules.system.domain.User;
 import java.util.List;
 
 /**

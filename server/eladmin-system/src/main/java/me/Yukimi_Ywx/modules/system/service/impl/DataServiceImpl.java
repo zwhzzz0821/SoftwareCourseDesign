@@ -13,16 +13,16 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.modules.system.domain.Dept;
-import me.Yukimi_Ywx.modules.system.domain.Role;
-import me.Yukimi_Ywx.modules.system.domain.User;
-import me.Yukimi_Ywx.modules.system.service.DataService;
-import me.Yukimi_Ywx.modules.system.service.DeptService;
-import me.Yukimi_Ywx.modules.system.service.RoleService;
-import me.Yukimi_Ywx.utils.enums.DataScopeEnum;
+import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.modules.system.domain.User;
+import me.zhengjie.modules.system.service.DataService;
+import me.zhengjie.modules.system.service.DeptService;
+import me.zhengjie.modules.system.service.RoleService;
+import me.zhengjie.utils.enums.DataScopeEnum;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

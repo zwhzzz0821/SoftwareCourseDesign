@@ -23,7 +23,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.utils.PageResult;
 
 /**
 * @description 服务接口

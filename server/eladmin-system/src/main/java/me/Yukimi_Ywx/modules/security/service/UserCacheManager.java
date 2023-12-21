@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.service;
+package me.zhengjie.modules.security.service;
 
 import cn.hutool.core.util.RandomUtil;
-import me.Yukimi_Ywx.modules.security.config.bean.LoginProperties;
-import me.Yukimi_Ywx.modules.security.service.dto.JwtUserDto;
-import me.Yukimi_Ywx.utils.RedisUtils;
-import me.Yukimi_Ywx.utils.StringUtils;
+import me.zhengjie.modules.security.config.bean.LoginProperties;
+import me.zhengjie.modules.security.service.dto.JwtUserDto;
+import me.zhengjie.utils.RedisUtils;
+import me.zhengjie.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;

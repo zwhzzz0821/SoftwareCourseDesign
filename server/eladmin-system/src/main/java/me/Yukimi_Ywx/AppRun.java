@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx;
+package me.zhengjie;
 
 import io.swagger.annotations.Api;
-import me.Yukimi_Ywx.annotation.rest.AnonymousGetMapping;
-import me.Yukimi_Ywx.utils.SpringContextHolder;
+import me.zhengjie.annotation.rest.AnonymousGetMapping;
+import me.zhengjie.utils.SpringContextHolder;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;

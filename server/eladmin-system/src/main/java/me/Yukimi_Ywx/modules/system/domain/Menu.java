@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.domain;
+package me.zhengjie.modules.system.domain;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -23,7 +23,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import me.Yukimi_Ywx.base.BaseEntity;
+import me.zhengjie.base.BaseEntity;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;

@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.aspect;
+package me.zhengjie.aspect;
 
 import com.google.common.collect.ImmutableList;
-import me.Yukimi_Ywx.annotation.Limit;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.utils.RequestHolder;
-import me.Yukimi_Ywx.utils.StringUtils;
+import me.zhengjie.annotation.Limit;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.utils.RequestHolder;
+import me.zhengjie.utils.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -48,7 +48,7 @@ public class LimitAspect {
         this.redisTemplate = redisTemplate;
     }
 
-    @Pointcut("@annotation(me.Yukimi_Ywx.annotation.Limit)")
+    @Pointcut("@annotation(me.zhengjie.annotation.Limit)")
     public void pointcut() {
     }
 

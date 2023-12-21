@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.quartz.utils;
+package me.zhengjie.modules.quartz.utils;
 
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzJob;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.quartz.domain.QuartzJob;
 import org.quartz.*;
 import org.quartz.impl.triggers.CronTriggerImpl;
 import org.springframework.stereotype.Component;

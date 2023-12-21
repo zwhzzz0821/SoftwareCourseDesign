@@ -13,15 +13,15 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.aspect;
+package me.zhengjie.aspect;
 
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.domain.SysLog;
-import me.Yukimi_Ywx.service.SysLogService;
-import me.Yukimi_Ywx.utils.RequestHolder;
-import me.Yukimi_Ywx.utils.SecurityUtils;
-import me.Yukimi_Ywx.utils.StringUtils;
-import me.Yukimi_Ywx.utils.ThrowableUtil;
+import me.zhengjie.domain.SysLog;
+import me.zhengjie.service.SysLogService;
+import me.zhengjie.utils.RequestHolder;
+import me.zhengjie.utils.SecurityUtils;
+import me.zhengjie.utils.StringUtils;
+import me.zhengjie.utils.ThrowableUtil;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
@@ -51,7 +51,7 @@ public class LogAspect {
     /**
      * 配置切入点
      */
-    @Pointcut("@annotation(me.Yukimi_Ywx.annotation.Log)")
+    @Pointcut("@annotation(me.zhengjie.annotation.Log)")
     public void logPointcut() {
         // 该方法无方法体,主要为了让同类中其他方法使用此切入点
     }

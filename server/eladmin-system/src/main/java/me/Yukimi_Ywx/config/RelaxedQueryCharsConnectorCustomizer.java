@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.config;
+package me.zhengjie.config;
 
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;

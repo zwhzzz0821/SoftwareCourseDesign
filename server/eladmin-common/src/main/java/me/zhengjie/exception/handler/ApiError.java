@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.exception.handler;
+package me.zhengjie.exception.handler;
 
 import lombok.Data;
 

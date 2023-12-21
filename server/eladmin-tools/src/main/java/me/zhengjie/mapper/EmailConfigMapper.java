@@ -13,10 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.mapper;
+package me.zhengjie.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import me.Yukimi_Ywx.domain.EmailConfig;
+import me.zhengjie.domain.EmailConfig;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

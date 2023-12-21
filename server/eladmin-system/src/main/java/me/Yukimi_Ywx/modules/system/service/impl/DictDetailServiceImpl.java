@@ -13,18 +13,18 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.modules.system.domain.Dict;
-import me.Yukimi_Ywx.modules.system.domain.DictDetail;
-import me.Yukimi_Ywx.modules.system.mapper.DictMapper;
-import me.Yukimi_Ywx.modules.system.domain.vo.DictDetailQueryCriteria;
-import me.Yukimi_Ywx.utils.*;
-import me.Yukimi_Ywx.modules.system.mapper.DictDetailMapper;
-import me.Yukimi_Ywx.modules.system.service.DictDetailService;
+import me.zhengjie.modules.system.domain.Dict;
+import me.zhengjie.modules.system.domain.DictDetail;
+import me.zhengjie.modules.system.mapper.DictMapper;
+import me.zhengjie.modules.system.domain.vo.DictDetailQueryCriteria;
+import me.zhengjie.utils.*;
+import me.zhengjie.modules.system.mapper.DictDetailMapper;
+import me.zhengjie.modules.system.service.DictDetailService;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

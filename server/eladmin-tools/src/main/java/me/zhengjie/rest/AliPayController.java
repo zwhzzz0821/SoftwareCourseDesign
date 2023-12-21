@@ -13,20 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.rest;
+package me.zhengjie.rest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.annotation.AnonymousAccess;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.annotation.rest.AnonymousGetMapping;
-import me.Yukimi_Ywx.domain.vo.TradeVo;
-import me.Yukimi_Ywx.domain.AlipayConfig;
-import me.Yukimi_Ywx.utils.AliPayStatusEnum;
-import me.Yukimi_Ywx.utils.AlipayUtils;
-import me.Yukimi_Ywx.service.AliPayService;
+import me.zhengjie.annotation.AnonymousAccess;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.annotation.rest.AnonymousGetMapping;
+import me.zhengjie.domain.vo.TradeVo;
+import me.zhengjie.domain.AlipayConfig;
+import me.zhengjie.utils.AliPayStatusEnum;
+import me.zhengjie.utils.AlipayUtils;
+import me.zhengjie.service.AliPayService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

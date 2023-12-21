@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.security;
+package me.zhengjie.modules.security.security;
 
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.modules.security.config.bean.SecurityProperties;
-import me.Yukimi_Ywx.modules.security.service.OnlineUserService;
-import me.Yukimi_Ywx.modules.security.service.UserCacheManager;
+import me.zhengjie.modules.security.config.bean.SecurityProperties;
+import me.zhengjie.modules.security.service.OnlineUserService;
+import me.zhengjie.modules.security.service.UserCacheManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;

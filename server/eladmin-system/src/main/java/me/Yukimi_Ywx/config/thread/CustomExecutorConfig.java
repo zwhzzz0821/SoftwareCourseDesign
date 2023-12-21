@@ -1,4 +1,4 @@
-package me.Yukimi_Ywx.config.thread;
+package me.zhengjie.config.thread;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

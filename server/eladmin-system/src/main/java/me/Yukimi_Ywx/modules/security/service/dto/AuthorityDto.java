@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.service.dto;
+package me.zhengjie.modules.security.service.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

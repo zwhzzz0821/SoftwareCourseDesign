@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.mnt.domain.vo;
+package me.zhengjie.modules.mnt.domain.vo;
 
 import lombok.Data;
 import java.sql.Timestamp;

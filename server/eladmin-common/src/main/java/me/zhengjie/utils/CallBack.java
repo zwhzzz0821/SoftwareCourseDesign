@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.Yukimi_Ywx.utils;
+package me.zhengjie.utils;
 
 /**
  * @author: liaojinlong

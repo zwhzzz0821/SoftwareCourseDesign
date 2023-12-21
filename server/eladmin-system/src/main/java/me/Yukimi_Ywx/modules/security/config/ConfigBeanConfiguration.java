@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package me.Yukimi_Ywx.modules.security.config;
+package me.zhengjie.modules.security.config;
 
-import me.Yukimi_Ywx.modules.security.config.bean.LoginProperties;
-import me.Yukimi_Ywx.modules.security.config.bean.SecurityProperties;
+import me.zhengjie.modules.security.config.bean.LoginProperties;
+import me.zhengjie.modules.security.config.bean.SecurityProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service.impl;
+package me.zhengjie.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -27,16 +27,16 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.storage.model.FileInfo;
 import com.qiniu.util.Auth;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.domain.QiniuConfig;
-import me.Yukimi_Ywx.domain.QiniuContent;
-import me.Yukimi_Ywx.mapper.QiniuContentMapper;
-import me.Yukimi_Ywx.domain.vo.QiniuQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
-import me.Yukimi_Ywx.utils.QiNiuUtil;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.service.QiniuContentService;
-import me.Yukimi_Ywx.utils.FileUtil;
-import me.Yukimi_Ywx.utils.PageUtil;
+import me.zhengjie.domain.QiniuConfig;
+import me.zhengjie.domain.QiniuContent;
+import me.zhengjie.mapper.QiniuContentMapper;
+import me.zhengjie.domain.vo.QiniuQueryCriteria;
+import me.zhengjie.utils.PageResult;
+import me.zhengjie.utils.QiNiuUtil;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.service.QiniuContentService;
+import me.zhengjie.utils.FileUtil;
+import me.zhengjie.utils.PageUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.stereotype.Service;

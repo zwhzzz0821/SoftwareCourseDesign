@@ -13,22 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.quartz.utils;
+package me.zhengjie.modules.quartz.utils;
 
 import cn.hutool.extra.template.Template;
 import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
-import me.Yukimi_Ywx.domain.vo.EmailVo;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzJob;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzLog;
-import me.Yukimi_Ywx.modules.quartz.mapper.QuartzLogMapper;
-import me.Yukimi_Ywx.modules.quartz.service.QuartzJobService;
-import me.Yukimi_Ywx.service.EmailService;
-import me.Yukimi_Ywx.utils.RedisUtils;
-import me.Yukimi_Ywx.utils.SpringContextHolder;
-import me.Yukimi_Ywx.utils.StringUtils;
-import me.Yukimi_Ywx.utils.ThrowableUtil;
+import me.zhengjie.domain.vo.EmailVo;
+import me.zhengjie.modules.quartz.domain.QuartzJob;
+import me.zhengjie.modules.quartz.domain.QuartzLog;
+import me.zhengjie.modules.quartz.mapper.QuartzLogMapper;
+import me.zhengjie.modules.quartz.service.QuartzJobService;
+import me.zhengjie.service.EmailService;
+import me.zhengjie.utils.RedisUtils;
+import me.zhengjie.utils.SpringContextHolder;
+import me.zhengjie.utils.StringUtils;
+import me.zhengjie.utils.ThrowableUtil;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

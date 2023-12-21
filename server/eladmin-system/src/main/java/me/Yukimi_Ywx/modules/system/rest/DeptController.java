@@ -13,19 +13,19 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.domain.Dept;
-import me.Yukimi_Ywx.modules.system.service.DeptService;
-import me.Yukimi_Ywx.modules.system.domain.vo.DeptQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
-import me.Yukimi_Ywx.utils.PageUtil;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.service.DeptService;
+import me.zhengjie.modules.system.domain.vo.DeptQueryCriteria;
+import me.zhengjie.utils.PageResult;
+import me.zhengjie.utils.PageUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

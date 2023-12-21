@@ -13,22 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.quartz.service.impl;
+package me.zhengjie.modules.quartz.service.impl;
 
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzJob;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzLog;
-import me.Yukimi_Ywx.modules.quartz.mapper.QuartzJobMapper;
-import me.Yukimi_Ywx.modules.quartz.mapper.QuartzLogMapper;
-import me.Yukimi_Ywx.modules.quartz.service.QuartzJobService;
-import me.Yukimi_Ywx.modules.quartz.domain.vo.QuartzJobQueryCriteria;
-import me.Yukimi_Ywx.modules.quartz.utils.QuartzManage;
-import me.Yukimi_Ywx.utils.*;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.quartz.domain.QuartzJob;
+import me.zhengjie.modules.quartz.domain.QuartzLog;
+import me.zhengjie.modules.quartz.mapper.QuartzJobMapper;
+import me.zhengjie.modules.quartz.mapper.QuartzLogMapper;
+import me.zhengjie.modules.quartz.service.QuartzJobService;
+import me.zhengjie.modules.quartz.domain.vo.QuartzJobQueryCriteria;
+import me.zhengjie.modules.quartz.utils.QuartzManage;
+import me.zhengjie.utils.*;
 import org.quartz.CronExpression;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;

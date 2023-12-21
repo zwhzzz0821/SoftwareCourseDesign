@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.domain.vo;
+package me.zhengjie.modules.system.domain.vo;
 
 import lombok.Data;
 import java.io.Serializable;

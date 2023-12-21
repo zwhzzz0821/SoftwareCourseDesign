@@ -13,22 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.domain.Dept;
-import me.Yukimi_Ywx.modules.system.domain.User;
-import me.Yukimi_Ywx.modules.system.mapper.RoleMapper;
-import me.Yukimi_Ywx.modules.system.mapper.UserMapper;
-import me.Yukimi_Ywx.modules.system.domain.vo.DeptQueryCriteria;
-import me.Yukimi_Ywx.utils.*;
-import me.Yukimi_Ywx.modules.system.mapper.DeptMapper;
-import me.Yukimi_Ywx.modules.system.service.DeptService;
-import me.Yukimi_Ywx.utils.enums.DataScopeEnum;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.domain.User;
+import me.zhengjie.modules.system.mapper.RoleMapper;
+import me.zhengjie.modules.system.mapper.UserMapper;
+import me.zhengjie.modules.system.domain.vo.DeptQueryCriteria;
+import me.zhengjie.utils.*;
+import me.zhengjie.modules.system.mapper.DeptMapper;
+import me.zhengjie.modules.system.service.DeptService;
+import me.zhengjie.utils.enums.DataScopeEnum;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;

@@ -13,28 +13,28 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.config.RsaProperties;
-import me.Yukimi_Ywx.modules.system.domain.Dept;
-import me.Yukimi_Ywx.modules.system.domain.Role;
-import me.Yukimi_Ywx.modules.system.service.DataService;
-import me.Yukimi_Ywx.modules.system.domain.User;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.domain.vo.UserPassVo;
-import me.Yukimi_Ywx.modules.system.service.DeptService;
-import me.Yukimi_Ywx.modules.system.service.RoleService;
-import me.Yukimi_Ywx.modules.system.domain.vo.UserQueryCriteria;
-import me.Yukimi_Ywx.modules.system.service.VerifyService;
-import me.Yukimi_Ywx.utils.*;
-import me.Yukimi_Ywx.modules.system.service.UserService;
-import me.Yukimi_Ywx.utils.enums.CodeEnum;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.config.RsaProperties;
+import me.zhengjie.modules.system.domain.Dept;
+import me.zhengjie.modules.system.domain.Role;
+import me.zhengjie.modules.system.service.DataService;
+import me.zhengjie.modules.system.domain.User;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.domain.vo.UserPassVo;
+import me.zhengjie.modules.system.service.DeptService;
+import me.zhengjie.modules.system.service.RoleService;
+import me.zhengjie.modules.system.domain.vo.UserQueryCriteria;
+import me.zhengjie.modules.system.service.VerifyService;
+import me.zhengjie.utils.*;
+import me.zhengjie.modules.system.service.UserService;
+import me.zhengjie.utils.enums.CodeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.utils;
+package me.zhengjie.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.utils.enums.DataScopeEnum;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.utils.enums.DataScopeEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

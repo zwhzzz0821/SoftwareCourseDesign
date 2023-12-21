@@ -13,20 +13,20 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.rest;
+package me.zhengjie.rest;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.domain.QiniuConfig;
-import me.Yukimi_Ywx.domain.QiniuContent;
-import me.Yukimi_Ywx.service.QiNiuConfigService;
-import me.Yukimi_Ywx.domain.vo.QiniuQueryCriteria;
-import me.Yukimi_Ywx.service.QiniuContentService;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.domain.QiniuConfig;
+import me.zhengjie.domain.QiniuContent;
+import me.zhengjie.service.QiNiuConfigService;
+import me.zhengjie.domain.vo.QiniuQueryCriteria;
+import me.zhengjie.service.QiniuContentService;
+import me.zhengjie.utils.PageResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

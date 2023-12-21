@@ -13,21 +13,21 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.rest;
+package me.zhengjie.modules.system.rest;
 
 import cn.hutool.core.collection.CollectionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.annotation.Log;
-import me.Yukimi_Ywx.modules.system.domain.Menu;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.domain.vo.MenuVo;
-import me.Yukimi_Ywx.modules.system.service.MenuService;
-import me.Yukimi_Ywx.modules.system.domain.vo.MenuQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
-import me.Yukimi_Ywx.utils.PageUtil;
-import me.Yukimi_Ywx.utils.SecurityUtils;
+import me.zhengjie.annotation.Log;
+import me.zhengjie.modules.system.domain.Menu;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.domain.vo.MenuVo;
+import me.zhengjie.modules.system.service.MenuService;
+import me.zhengjie.modules.system.domain.vo.MenuQueryCriteria;
+import me.zhengjie.utils.PageResult;
+import me.zhengjie.utils.PageUtil;
+import me.zhengjie.utils.SecurityUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

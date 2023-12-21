@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.domain.vo;
+package me.zhengjie.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

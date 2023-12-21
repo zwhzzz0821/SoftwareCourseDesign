@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.system.service.impl;
+package me.zhengjie.modules.system.service.impl;
 
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.RandomUtil;
@@ -22,10 +22,10 @@ import cn.hutool.extra.template.TemplateConfig;
 import cn.hutool.extra.template.TemplateEngine;
 import cn.hutool.extra.template.TemplateUtil;
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.domain.vo.EmailVo;
-import me.Yukimi_Ywx.exception.BadRequestException;
-import me.Yukimi_Ywx.modules.system.service.VerifyService;
-import me.Yukimi_Ywx.utils.RedisUtils;
+import me.zhengjie.domain.vo.EmailVo;
+import me.zhengjie.exception.BadRequestException;
+import me.zhengjie.modules.system.service.VerifyService;
+import me.zhengjie.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

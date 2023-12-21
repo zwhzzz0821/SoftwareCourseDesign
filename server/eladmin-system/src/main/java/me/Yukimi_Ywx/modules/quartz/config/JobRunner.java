@@ -13,12 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.quartz.config;
+package me.zhengjie.modules.quartz.config;
 
 import lombok.RequiredArgsConstructor;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzJob;
-import me.Yukimi_Ywx.modules.quartz.mapper.QuartzJobMapper;
-import me.Yukimi_Ywx.modules.quartz.utils.QuartzManage;
+import me.zhengjie.modules.quartz.domain.QuartzJob;
+import me.zhengjie.modules.quartz.mapper.QuartzJobMapper;
+import me.zhengjie.modules.quartz.utils.QuartzManage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;

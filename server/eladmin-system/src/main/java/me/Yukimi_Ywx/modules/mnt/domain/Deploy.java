@@ -13,7 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.mnt.domain;
+package me.zhengjie.modules.mnt.domain;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -25,7 +25,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
 import lombok.Getter;
 import lombok.Setter;
-import me.Yukimi_Ywx.base.BaseEntity;
+import me.zhengjie.base.BaseEntity;
 import java.io.Serializable;
 import java.util.Set;
 import java.util.stream.Collectors;

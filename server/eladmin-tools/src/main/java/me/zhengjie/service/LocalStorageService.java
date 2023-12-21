@@ -13,13 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service;
+package me.zhengjie.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.Yukimi_Ywx.domain.LocalStorage;
-import me.Yukimi_Ywx.domain.vo.LocalStorageQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.domain.LocalStorage;
+import me.zhengjie.domain.vo.LocalStorageQueryCriteria;
+import me.zhengjie.utils.PageResult;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

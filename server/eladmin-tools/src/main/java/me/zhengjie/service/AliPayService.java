@@ -13,11 +13,11 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.service;
+package me.zhengjie.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.Yukimi_Ywx.domain.vo.TradeVo;
-import me.Yukimi_Ywx.domain.AlipayConfig;
+import me.zhengjie.domain.vo.TradeVo;
+import me.zhengjie.domain.AlipayConfig;
 
 /**
  * @author Zheng Jie

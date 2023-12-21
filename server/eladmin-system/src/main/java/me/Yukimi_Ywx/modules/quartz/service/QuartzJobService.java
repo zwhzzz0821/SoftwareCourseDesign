@@ -13,14 +13,14 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package me.Yukimi_Ywx.modules.quartz.service;
+package me.zhengjie.modules.quartz.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzJob;
-import me.Yukimi_Ywx.modules.quartz.domain.QuartzLog;
-import me.Yukimi_Ywx.modules.quartz.domain.vo.QuartzJobQueryCriteria;
-import me.Yukimi_Ywx.utils.PageResult;
+import me.zhengjie.modules.quartz.domain.QuartzJob;
+import me.zhengjie.modules.quartz.domain.QuartzLog;
+import me.zhengjie.modules.quartz.domain.vo.QuartzJobQueryCriteria;
+import me.zhengjie.utils.PageResult;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

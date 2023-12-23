@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.ses.mapper.ShopMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.ses.domain.Shop">
+        <id column="shop_id" property="shopId"/>
+        <result column="title" property="title"/>
+        <result column="address" property="address"/>
+        <result column="description" property="description"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        shop_id, title, address, description
+    </sql>
+
+<!--    下面这个是查询所有的sql语句 就是说如果title（店名）和地址名都是空的话那就返回所有-->
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ses_shop
+        <where>
+            <if test="criteria.title != null">
+--             criteria是前端传过来的内容
+                and title like concat('%',#{criteria.title},'%')
+            </if>
+            <if test="criteria.address != null">
+                and address like concat('%',#{criteria.address},'%')
+            </if>
+        </where>
+        order by shop_id asc
+    </select>
+
+
+</mapper>

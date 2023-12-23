@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.ses.mapper.CatMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.ses.domain.Cat">
+        <id column="cat_id" property="catId"/>
+        <result column="kind" property="kind"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        cat_id, kind
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ses_cat
+        <where>
+            <if test="criteria.kind != null">
+                and title like concat('%',#{criteria.kind},'%')
+            </if>
+        </where>
+        order by cat_id asc
+    </select>
+</mapper>

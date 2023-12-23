@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.ses.mapper.ProductMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.ses.domain.Product">
+        <!-- 修改以下部分 -->
+        <id column="product_id" property="productId"/>
+        <result column="title" property="title"/>
+        <result column="unit_price" property="unitPrice"/>
+        <result column="quantity" property="quantity"/>
+        <result column="description" property="description"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="cat_id" property="catId"/>
+<!--        <result column="kind" property="kind"/>-->
+<!--        上面那个不要了因为直接去连cat的kind了，我数据库里的列也删了-->
+
+        <!-- 建立 Cat 对应的映射关系，类似于 User 对应的 Job -->
+        <collection property="cat" ofType="me.zhengjie.modules.ses.domain.Cat">
+            <id column="cat_id" property="catId"/>
+            <result column="kind" property="kind"/>
+        </collection>
+    </resultMap>
+
+<!--    下面这个只是起个别名罢了，因为要JOIN嘛，要明确是属于那个表格的-->
+    <sql id="Base_Column_List">
+        p.product_id as product_product_id, p.title as product_title,
+        p.unit_price as product_unit_price, p.quantity as product_quantity,
+        p.description as product_description, p.shop_id as product_shop_id,
+--         p.kind as p_product
+    </sql>
+
+    <sql id="Cat_Column_List">
+        c.cat_id as cat_id, c.kind as kind
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select p.*, c.kind
+        from ses_product p
+        <where>
+            <if test="criteria.title != null">
+--             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？% 这个你懂的吧我不说了
+                and p.title like concat('%',#{criteria.title},'%')
+            </if>
+        </where>
+        left join ses_cat c on p.cat_id = c.cat_id
+        order by p.product_id asc
+    </select>
+
+
+</mapper>

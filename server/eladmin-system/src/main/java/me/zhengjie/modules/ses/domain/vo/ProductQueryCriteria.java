@@ -24,4 +24,8 @@ import lombok.Data;
 @Data
 public class ProductQueryCriteria{
     private String title;
+    private Integer shopId;
+    private Long offset;
+
+    private Long size;
 }

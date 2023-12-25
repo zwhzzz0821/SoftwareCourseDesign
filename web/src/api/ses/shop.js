@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function getShop(params) {
+  return request({
+    url: 'api/shop',
+    method: 'get',
+    params
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/shop',

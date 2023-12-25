@@ -40,6 +40,10 @@
 --             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？% 这个你懂的吧我不说了
                 and p.title like concat('%',#{criteria.title},'%')
             </if>
+            <if test="criteria.shopId != null">
+                --             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？% 这个你懂的吧我不说了
+                p.shopId = #{criteria.shopId}
+            </if>/
         </where>
         left join ses_cat c on p.cat_id = c.cat_id
         order by p.product_id asc

@@ -1,5 +1,13 @@
 import request from '@/utils/request'
 
+export function getCats(params) {
+  return request({
+    url: 'api/cat',
+    method: 'get',
+    params
+  })
+}
+
 export function add(data) {
   return request({
     url: 'api/cat',

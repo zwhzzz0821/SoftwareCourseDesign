@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.zhengjie.modules.ses.mapper.ReviewMapper">
+    <resultMap id="BaseResultMap" type="me.zhengjie.modules.ses.domain.Review">
+        <id column="review_id" property="reviewId"/>
+        <result column="contents" property="contents"/>
+        <result column="star" property="star"/>
+        <result column="user_id" property="userId"/>
+        <result column="product_id" property="productId"/>
+        <result column="shop_id" property="shopId"/>
+        <result column="create_time" property="createTime"/>
+
+        <collection property="shop" ofType="me.zhengjie.modules.ses.domain.Shop">
+            <id column="shop_id" property="shopId"/>
+            <result column="title" property="title"/>
+            <result column="address" property="address"/>
+            <result column="description" property="description"/>
+        </collection>
+
+        <collection property="product" ofType="me.zhengjie.modules.ses.domain.Product">
+            <id column="product_id" property="productId"/>
+            <result column="title" property="title"/>
+            <result column="unit_price" property="unitPrice"/>
+            <result column="quantity" property="quantity"/>
+            <result column="description" property="description"/>
+            <result column="shop_id" property="shopId"/>
+            <result column="cat_id" property="catId"/>
+        </collection>
+
+        <collection property="user" ofType="me.zhengjie.modules.system.domain.User">
+            <id column="user_user_id" property="id"/>
+            <result column="user_dept_id" property="deptId"/>
+            <result column="user_username" property="username"/>
+            <result column="user_nick_name" property="nickName"/>
+            <result column="user_email" property="email"/>
+            <result column="user_phone" property="phone"/>
+            <result column="user_gender" property="gender"/>
+            <result column="user_avatar_name" property="avatarName"/>
+            <result column="user_avatar_path" property="avatarPath"/>
+            <result column="user_password" property="password"/>
+            <result column="user_is_admin" property="isAdmin"/>
+            <result column="user_enabled" property="enabled"/>
+            <result column="user_pwd_reset_time" property="pwdResetTime"/>
+            <result column="user_create_by" property="createBy"/>
+            <result column="user_update_by" property="updateBy"/>
+            <result column="user_create_time" property="createTime"/>
+            <result column="user_update_time" property="updateTime"/>
+        </collection>
+
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        r.review_id as review_id, r.contents as contents, r.star as star,
+        r.user_id as user_id, r.product_id as product_id, r.shop_id as shop_id,r.create_time as create_time
+    </sql>
+
+    <sql id="Product_Column_List">
+        p.product_id as product_product_id, p.title as product_title,
+        p.unit_price as product_unit_price, p.quantity as product_quantity,
+        p.description as product_description, p.shop_id as product_shop_id
+    </sql>
+
+<!--    <sql id="Shop_Column_List">-->
+<!--        s.shop_id as shop_shop_id, s.title as shop_title, s.address as shop_address, s.description as shop_description-->
+<!--    </sql>-->
+
+    <sql id="Shop_Column_List">
+        s.shop_id as shop_id, s.title as title, s.address as address, s.description as description
+    </sql>
+
+
+    <sql id="User_Column_List">
+        u.user_id as user_user_id, u.dept_id as user_dept_id, u.username as user_username,
+           u.nick_name as user_nick_name, u.email as user_email, u.phone as user_phone,
+           u.gender as user_gender, u.avatar_name as user_avatar_name, u.avatar_path as user_avatar_path,
+           u.enabled as user_enabled, u.pwd_reset_time as user_pwd_reset_time, u.create_by as user_create_by,
+           u.update_by as user_update_by, u.create_time as user_create_time, u.update_time as user_update_time,
+    </sql>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        <!-- 移动 <where> 元素位置，与 SQL 查询连接 -->
+        select r.*, s.title as shop_title, p.title  as product_title, u.username as username
+<!--        <include refid="User_Column_List"/>-->
+        from ses_review r
+        left join ses_product p on p.product_id = r.product_id
+        left join ses_shop s on s.shop_id = r.shop_id
+        left join sys_user u on u.user_id = r.user_id
+        <!-- 将 <where> 元素放置在连接的地方 -->
+        <where>
+            <if test="criteria.star != null">
+                and star &gt;= #{criteria.star}
+            </if>
+            <if test="criteria.userId != null">
+                and r.user_id like concat('%',#{criteria.userId},'%')
+            </if>
+            <if test="criteria.productId != null">
+                and r.product_id like concat('%',#{criteria.productId},'%')
+            </if>
+            <if test="criteria.shopId != null">
+                and r.shop_id like concat('%',#{criteria.shopId},'%')
+            </if>
+        </where>
+        order by review_id asc
+    </select>
+
+<!--    <select id="findAll" resultMap="BaseResultMap">-->
+<!--        &lt;!&ndash; 移动 <where> 元素位置，与 SQL 查询连接 &ndash;&gt;-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>,-->
+<!--        <include refid="Shop_Column_List"/>,-->
+<!--        <include refid="Product_Column_List"/>,-->
+<!--        <include refid="User_Column_List"/>-->
+<!--        from ses_review r-->
+<!--        left join ses_shop s on r.shop_id = s.shop_id-->
+<!--        left join ses_product p on r.product_id = p.product_id-->
+<!--        left join sys_user u on r.user_id = u.user_id-->
+<!--        &lt;!&ndash; 将 <where> 元素放置在连接的地方 &ndash;&gt;-->
+<!--        <where>-->
+<!--            <if test="criteria.star != null">-->
+<!--                and star &gt;= #{criteria.star}-->
+<!--            </if>-->
+<!--            <if test="criteria.userId != null">-->
+<!--                and r.user_id like concat('%', #{criteria.userId}, '%')-->
+<!--            </if>-->
+<!--            <if test="criteria.productId != null">-->
+<!--                and r.product_id like concat('%', #{criteria.productId}, '%')-->
+<!--            </if>-->
+<!--            <if test="criteria.shopId != null">-->
+<!--                and r.shop_id like concat('%', #{criteria.shopId}, '%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        order by r.review_id asc-->
+<!--    </select>-->
+
+<!--    <select id="findAll" resultMap="BaseResultMap">-->
+<!--        &lt;!&ndash; 移动 <where> 元素位置，与 SQL 查询连接 &ndash;&gt;-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>,-->
+<!--        <include refid="Shop_Column_List"/>,-->
+<!--        <include refid="Product_Column_List"/>,-->
+<!--        <include refid="User_Column_List"/>-->
+<!--        from ses_review r-->
+<!--        left join ses_shop s on r.shop_id = s.shop_id-->
+<!--        left join ses_product p on r.product_id = p.product_id-->
+<!--        left join sys_user u on r.user_id = u.user_id-->
+<!--        &lt;!&ndash; 将 <where> 元素放置在连接的地方 &ndash;&gt;-->
+<!--        <where>-->
+<!--            &lt;!&ndash; 添加条件，并且使用合适的别名 &ndash;&gt;-->
+<!--            <if test="criteria.star != null">-->
+<!--                and r.star &gt;= #{criteria.star}-->
+<!--            </if>-->
+<!--            <if test="criteria.userId != null">-->
+<!--                and r.user_id like concat('%', #{criteria.userId}, '%')-->
+<!--            </if>-->
+<!--            <if test="criteria.productId != null">-->
+<!--                and r.product_id like concat('%', #{criteria.productId}, '%')-->
+<!--            </if>-->
+<!--            <if test="criteria.shopId != null">-->
+<!--                and r.shop_id like concat('%', #{criteria.shopId}, '%')-->
+<!--            </if>-->
+<!--        </where>-->
+<!--        &lt;!&ndash; 添加 LIMIT 子句限制查询结果 &ndash;&gt;-->
+<!--        <if test="pageSize != null and pageNumber != null">-->
+<!--            LIMIT #{pageSize} OFFSET #{pageSize * (pageNumber - 1)}-->
+<!--        </if>-->
+<!--        order by r.review_id asc-->
+<!--    </select>-->
+
+
+
+</mapper>

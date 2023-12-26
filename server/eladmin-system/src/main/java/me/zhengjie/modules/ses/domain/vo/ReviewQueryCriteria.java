@@ -19,12 +19,12 @@ import lombok.Data;
 
 /**
 * @author ywx
-* @date 2023-12-22
+* @date 2023-12-26
 **/
 @Data
-public class ProductQueryCriteria{
-    private String title;
+public class ReviewQueryCriteria{
+    private Integer star;
+    private Integer userId;
+    private Integer productId;
     private Integer shopId;
-    private Long offset;
-    private Long size;
 }

@@ -13,7 +13,7 @@
 <!--        <result column="kind" property="kind"/>-->
 <!--        上面那个不要了因为直接去连cat的kind了，我数据库里的列也删了-->
 
-        <!-- 建立 Cat 对应的映射关系，类似于 User 对应的 Job -->
+        <!-- 建立 Cat 对应的映射关系-->
         <collection property="cat" ofType="me.zhengjie.modules.ses.domain.Cat">
             <id column="cat_id" property="catId"/>
             <result column="kind" property="kind"/>
@@ -32,16 +32,18 @@
         c.cat_id as cat_id, c.kind as kind
     </sql>
 
+
+
     <select id="findAll" resultMap="BaseResultMap">
         select p.*, c.kind
         from ses_product p
         <where>
             <if test="criteria.title != null">
---             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？% 这个你懂的吧我不说了
+--             如果用户没有在搜索框输入东西就返回所有，不然就返回like
                 and p.title like concat('%',#{criteria.title},'%')
             </if>
             <if test="criteria.shopId != null">
-                --             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？% 这个你懂的吧我不说了
+                --             如果用户没有在搜索框输入东西就返回所有，不然就返回like %？%
                 p.shopId = #{criteria.shopId}
             </if>/
         </where>

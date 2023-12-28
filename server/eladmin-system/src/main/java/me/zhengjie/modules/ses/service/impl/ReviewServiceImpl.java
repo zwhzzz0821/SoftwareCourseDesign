@@ -18,10 +18,12 @@ package me.zhengjie.modules.ses.service.impl;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import me.zhengjie.modules.ses.domain.Product;
 import me.zhengjie.modules.ses.domain.Review;
+import me.zhengjie.modules.ses.domain.Shop;
 import me.zhengjie.modules.ses.domain.vo.ProductQueryCriteria;
 import me.zhengjie.modules.ses.mapper.CatMapper;
 import me.zhengjie.modules.ses.mapper.ProductMapper;
 import me.zhengjie.modules.ses.mapper.ShopMapper;
+import me.zhengjie.modules.system.domain.User;
 import me.zhengjie.modules.system.mapper.UserMapper;
 import me.zhengjie.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +43,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.stream.Collectors;
 
 import me.zhengjie.utils.PageResult;
 
@@ -60,9 +63,42 @@ public class ReviewServiceImpl extends ServiceImpl<ReviewMapper, Review> impleme
 
     @Override
     public PageResult<Review> queryAll(ReviewQueryCriteria criteria, Page<Object> page) {
+        // 店铺
+        List<Long> uid_list = null;
+        if (StringUtils.isNotBlank(criteria.getUserId())) {
+            uid_list = new LambdaQueryChainWrapper<>(userMapper)
+                    .like(User::getUsername, criteria.getUserId())
+                    .list().stream().map(User::getId).collect(Collectors.toList());
+            if (uid_list.isEmpty()) {
+                return PageUtil.toPage(new ArrayList<>(), 0);
+            }
+        }
+        // 商品
+        List<Integer> pid_list = null;
+        if (StringUtils.isNotBlank(criteria.getProductId())) {
+            pid_list = new LambdaQueryChainWrapper<>(productMapper)
+                    .like(Product::getTitle, criteria.getProductId())
+                    .list().stream().map(Product::getProductId).collect(Collectors.toList());
+            if (pid_list.isEmpty()) {
+                return PageUtil.toPage(new ArrayList<>(), 0);
+            }
+        }
+        // 店铺
+        List<Integer> sid_list = null;
+        if (StringUtils.isNotBlank(criteria.getShopId())) {
+            sid_list = new LambdaQueryChainWrapper<>(shopMapper)
+                    .like(Shop::getTitle, criteria.getShopId())
+                    .list().stream().map(Shop::getShopId).collect(Collectors.toList());
+            if (sid_list.isEmpty()) {
+                return PageUtil.toPage(new ArrayList<>(), 0);
+            }
+        }
+
         Page<Review> reviewList = new LambdaQueryChainWrapper<>(reviewMapper)
-                .eq(criteria.getShopId() != null, Review::getShopId, criteria.getShopId())
-//                .like(StringUtils.isNoneBlank(criteria.getProductId()), Review::getContents, criteria.getTitle())
+                .eq(criteria.getStar() != null, Review::getStar, criteria.getStar())
+                .in(uid_list != null, Review::getUserId, uid_list)
+                .in(pid_list != null, Review::getProductId, pid_list)
+                .in(sid_list != null, Review::getShopId, sid_list)
                 .page(
                         new Page<>(page.getPages(), page.getSize())
                 );

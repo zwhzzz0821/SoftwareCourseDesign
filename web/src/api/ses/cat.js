@@ -21,6 +21,8 @@ export function del(ids) {
     url: 'api/cat/',
     method: 'delete',
     data: ids
+  }).then(resp => {
+    console.log(resp)
   })
 }
 

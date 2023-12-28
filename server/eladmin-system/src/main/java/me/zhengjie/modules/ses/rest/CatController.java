@@ -58,6 +58,7 @@ public class CatController {
     @Log("查询种类")
     @ApiOperation("查询种类")
     @PreAuthorize("@el.check('cat:list')")
+    @ResponseBody
     public ResponseEntity<PageResult<Cat>> queryCat(CatQueryCriteria criteria, Page<Object> page){
         return new ResponseEntity<>(catService.queryAll(criteria,page),HttpStatus.OK);
     }
@@ -84,6 +85,7 @@ public class CatController {
     @Log("删除种类")
     @ApiOperation("删除种类")
     @PreAuthorize("@el.check('cat:del')")
+    @ResponseBody
     public ResponseEntity<Object> deleteCat(@RequestBody List<Integer> ids) {
         catService.deleteAll(ids);
         return new ResponseEntity<>(HttpStatus.OK);

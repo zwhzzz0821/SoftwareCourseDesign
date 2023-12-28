@@ -162,12 +162,12 @@ export default {
     },
     async getShop() {
       const shopList = await getShop()
-      console.log(shopList)
+      // console.log(shopList)
       this.shopList = shopList.content
     },
     async getUser() {
       const userList = await getUser()
-      console.log(userList)
+      // console.log(userList)
       this.userList = userList.content
     }
   }

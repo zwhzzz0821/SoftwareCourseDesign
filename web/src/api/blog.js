@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function add(data) {
   return request({
-    url: 'api/cat',
+    url: 'api/blog',
     method: 'post',
     data
   })
@@ -10,17 +10,15 @@ export function add(data) {
 
 export function del(ids) {
   return request({
-    url: 'api/cat/',
+    url: 'api/blog/',
     method: 'delete',
     data: ids
-  }).then(resp => {
-    console.log(resp)
   })
 }
 
 export function edit(data) {
   return request({
-    url: 'api/cat',
+    url: 'api/blog',
     method: 'put',
     data
   })

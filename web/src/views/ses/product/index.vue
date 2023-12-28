@@ -64,14 +64,18 @@
               <el-table-column prop="description" label="描述" />
               <el-table-column :show-overflow-tooltip="true" prop="cat" label="商品种类">
                 <template slot-scope="scope">
-                  <div>{{ scope.row.cat.kind }}</div>
+                  <div v-if="scope.row.cat !== null && scope.row.cat !== undefined">
+                    {{ scope.row.cat.kind }}
+                  </div>
                 </template>
               </el-table-column>
-                     <el-table-column prop="cats" label="商品种类">
-                       <template slot-scope="scope">
-                         <div>{{ scope.row.cats.title }}</div>
-                       </template>
-                     </el-table-column>
+              <!--                     <el-table-column prop="cats" label="商品种类">-->
+              <!--                       <template slot-scope="scope">-->
+              <!--                         <div>-->
+              <!--                           {{ scope.row.cats.title }}-->
+              <!--                         </div>-->
+              <!--                       </template>-->
+              <!--                     </el-table-column>-->
               <el-table-column v-if="checkPer(['admin','product:edit','product:del'])" label="操作" width="150px" align="center">
                 <template slot-scope="scope">
                   <udOperation

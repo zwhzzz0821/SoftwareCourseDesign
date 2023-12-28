@@ -46,7 +46,7 @@ public class CatController {
 
     private final CatService catService;
 
-    @Log("导出数据")
+//    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('cat:list')")
@@ -55,7 +55,7 @@ public class CatController {
     }
 
     @GetMapping
-    @Log("查询种类")
+//    @Log("查询种类")
     @ApiOperation("查询种类")
     @PreAuthorize("@el.check('cat:list')")
     @ResponseBody
@@ -64,7 +64,7 @@ public class CatController {
     }
 
     @PostMapping
-    @Log("新增种类")
+//    @Log("新增种类")
     @ApiOperation("新增种类")
     @PreAuthorize("@el.check('cat:add')")
     public ResponseEntity<Object> createCat(@Validated @RequestBody Cat resources){
@@ -73,7 +73,7 @@ public class CatController {
     }
 
     @PutMapping
-    @Log("修改种类")
+//    @Log("修改种类")
     @ApiOperation("修改种类")
     @PreAuthorize("@el.check('cat:edit')")
     public ResponseEntity<Object> updateCat(@Validated @RequestBody Cat resources){
@@ -82,7 +82,7 @@ public class CatController {
     }
 
     @DeleteMapping
-    @Log("删除种类")
+//    @Log("删除种类")
     @ApiOperation("删除种类")
     @PreAuthorize("@el.check('cat:del')")
     @ResponseBody

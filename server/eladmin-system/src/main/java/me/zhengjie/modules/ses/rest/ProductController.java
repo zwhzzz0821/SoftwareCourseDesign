@@ -46,7 +46,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Log("导出数据")
+//    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('product:list')")
@@ -55,7 +55,7 @@ public class ProductController {
     }
 
     @GetMapping
-    @Log("查询商品")
+//    @Log("查询商品")
     @ApiOperation("查询商品")
     @PreAuthorize("@el.check('product:list')")
     public ResponseEntity<PageResult<Product>> queryProduct(ProductQueryCriteria criteria, Page<Object> page){
@@ -63,7 +63,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @Log("新增商品")
+//    @Log("新增商品")
     @ApiOperation("新增商品")
     @PreAuthorize("@el.check('product:add')")
     public ResponseEntity<Object> createProduct(@Validated @RequestBody Product resources){
@@ -72,7 +72,7 @@ public class ProductController {
     }
 
     @PutMapping
-    @Log("修改商品")
+//    @Log("修改商品")
     @ApiOperation("修改商品")
     @PreAuthorize("@el.check('product:edit')")
     public ResponseEntity<Object> updateProduct(@Validated @RequestBody Product resources){
@@ -81,7 +81,7 @@ public class ProductController {
     }
 
     @DeleteMapping
-    @Log("删除商品")
+//    @Log("删除商品")
     @ApiOperation("删除商品")
     @PreAuthorize("@el.check('product:del')")
     public ResponseEntity<Object> deleteProduct(@RequestBody List<Integer> ids) {

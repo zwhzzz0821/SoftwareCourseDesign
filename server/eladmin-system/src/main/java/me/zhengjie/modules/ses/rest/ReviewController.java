@@ -44,7 +44,7 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @Log("导出数据")
+//    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('review:list')")
@@ -53,7 +53,7 @@ public class ReviewController {
     }
 
     @GetMapping
-    @Log("查询评价")
+//    @Log("查询评价")
     @ApiOperation("查询评价")
     @PreAuthorize("@el.check('review:list')")
     public ResponseEntity<PageResult<Review>> queryReview(ReviewQueryCriteria criteria, Page<Object> page){
@@ -61,7 +61,7 @@ public class ReviewController {
     }
 
     @PostMapping
-    @Log("新增评价")
+//    @Log("新增评价")
     @ApiOperation("新增评价")
     @PreAuthorize("@el.check('review:add')")
     public ResponseEntity<Object> createReview(@Validated @RequestBody Review resources){
@@ -70,7 +70,7 @@ public class ReviewController {
     }
 
     @PutMapping
-    @Log("修改评价")
+//    @Log("修改评价")
     @ApiOperation("修改评价")
     @PreAuthorize("@el.check('review:edit')")
     public ResponseEntity<Object> updateReview(@Validated @RequestBody Review resources){
@@ -79,7 +79,7 @@ public class ReviewController {
     }
 
     @DeleteMapping
-    @Log("删除评价")
+//    @Log("删除评价")
     @ApiOperation("删除评价")
     @PreAuthorize("@el.check('review:del')")
     public ResponseEntity<Object> deleteReview(@RequestBody List<Integer> ids) {

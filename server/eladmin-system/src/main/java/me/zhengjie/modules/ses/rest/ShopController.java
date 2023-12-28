@@ -46,7 +46,7 @@ public class ShopController {
 
     private final ShopService shopService;
 
-    @Log("导出数据")
+//    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('shop:list')")
@@ -55,7 +55,7 @@ public class ShopController {
     }
 
     @GetMapping
-    @Log("查询商铺")
+//    @Log("查询商铺")
     @ApiOperation("查询商铺")
     @PreAuthorize("@el.check('shop:list')")
     public ResponseEntity<PageResult<Shop>> queryShop(ShopQueryCriteria criteria, Page<Object> page){
@@ -63,7 +63,7 @@ public class ShopController {
     }
 
     @PostMapping
-    @Log("新增商铺")
+//    @Log("新增商铺")
     @ApiOperation("新增商铺")
     @PreAuthorize("@el.check('shop:add')")
     public ResponseEntity<Object> createShop(@Validated @RequestBody Shop resources){
@@ -72,7 +72,7 @@ public class ShopController {
     }
 
     @PutMapping
-    @Log("修改商铺")
+//    @Log("修改商铺")
     @ApiOperation("修改商铺")
     @PreAuthorize("@el.check('shop:edit')")
     public ResponseEntity<Object> updateShop(@Validated @RequestBody Shop resources){
@@ -81,7 +81,7 @@ public class ShopController {
     }
 
     @DeleteMapping
-    @Log("删除商铺")
+//    @Log("删除商铺")
     @ApiOperation("删除商铺")
     @PreAuthorize("@el.check('shop:del')")
     public ResponseEntity<Object> deleteShop(@RequestBody List<Integer> ids) {

@@ -44,7 +44,7 @@ public class BlogController {
 
     private final BlogService blogService;
 
-    @Log("导出数据")
+//    @Log("导出数据")
     @ApiOperation("导出数据")
     @GetMapping(value = "/download")
     @PreAuthorize("@el.check('blog:list')")
@@ -53,7 +53,7 @@ public class BlogController {
     }
 
     @GetMapping
-    @Log("查询论坛")
+//    @Log("查询论坛")
     @ApiOperation("查询论坛")
     @PreAuthorize("@el.check('blog:list')")
     public ResponseEntity<PageResult<Blog>> queryBlog(BlogQueryCriteria criteria, Page<Object> page){
@@ -61,7 +61,7 @@ public class BlogController {
     }
 
     @PostMapping
-    @Log("新增论坛")
+//    @Log("新增论坛")
     @ApiOperation("新增论坛")
     @PreAuthorize("@el.check('blog:add')")
     public ResponseEntity<Object> createBlog(@Validated @RequestBody Blog resources){
@@ -70,7 +70,7 @@ public class BlogController {
     }
 
     @PutMapping
-    @Log("修改论坛")
+//    @Log("修改论坛")
     @ApiOperation("修改论坛")
     @PreAuthorize("@el.check('blog:edit')")
     public ResponseEntity<Object> updateBlog(@Validated @RequestBody Blog resources){
@@ -79,7 +79,7 @@ public class BlogController {
     }
 
     @DeleteMapping
-    @Log("删除论坛")
+//    @Log("删除论坛")
     @ApiOperation("删除论坛")
     @PreAuthorize("@el.check('blog:del')")
     public ResponseEntity<Object> deleteBlog(@RequestBody List<Integer> ids) {

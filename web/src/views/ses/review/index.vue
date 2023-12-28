@@ -5,13 +5,13 @@
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
         <label class="el-form-item-label">评价星级</label>
-        <el-input v-model="query.star" clearable placeholder="评价星级" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.star" clearable placeholder="评价星级" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <label class="el-form-item-label">评价用户</label>
-        <el-input v-model="query.userId" clearable placeholder="评价用户" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.userId" clearable placeholder="评价用户" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <label class="el-form-item-label">评价商品</label>
-        <el-input v-model="query.productId" clearable placeholder="评价商品" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.productId" clearable placeholder="评价商品" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <label class="el-form-item-label">评价商铺</label>
-        <el-input v-model="query.shopId" clearable placeholder="评价商铺" style="width: 185px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input v-model="query.shopId" clearable placeholder="评价商铺" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
         <rrOperation :crud="crud" />
       </div>
 

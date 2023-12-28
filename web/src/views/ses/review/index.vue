@@ -5,19 +5,53 @@
       <div v-if="crud.props.searchToggle">
         <!-- 搜索 -->
         <label class="el-form-item-label">评价星级</label>
-        <el-input v-model="query.star" clearable placeholder="评价星级" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input
+          v-model="query.star"
+          clearable
+          placeholder="评价星级"
+          style="width: 160px;"
+          class="filter-item"
+          @keyup.enter.native="crud.toQuery"
+        />
         <label class="el-form-item-label">评价用户</label>
-        <el-input v-model="query.userId" clearable placeholder="评价用户" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input
+          v-model="query.userId"
+          clearable
+          placeholder="评价用户"
+          style="width: 160px;"
+          class="filter-item"
+          @keyup.enter.native="crud.toQuery"
+        />
         <label class="el-form-item-label">评价商品</label>
-        <el-input v-model="query.productId" clearable placeholder="评价商品" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input
+          v-model="query.productId"
+          clearable
+          placeholder="评价商品"
+          style="width: 160px;"
+          class="filter-item"
+          @keyup.enter.native="crud.toQuery"
+        />
         <label class="el-form-item-label">评价商铺</label>
-        <el-input v-model="query.shopId" clearable placeholder="评价商铺" style="width: 160px;" class="filter-item" @keyup.enter.native="crud.toQuery" />
+        <el-input
+          v-model="query.shopId"
+          clearable
+          placeholder="评价商铺"
+          style="width: 160px;"
+          class="filter-item"
+          @keyup.enter.native="crud.toQuery"
+        />
         <rrOperation :crud="crud" />
       </div>
 
       <crudOperation :permission="permission" />
       <!--表单组件-->
-      <el-dialog :close-on-click-modal="false" :before-close="crud.cancelCU" :visible.sync="crud.status.cu > 0" :title="crud.status.title" width="500px">
+      <el-dialog
+        :close-on-click-modal="false"
+        :before-close="crud.cancelCU"
+        :visible.sync="crud.status.cu > 0"
+        :title="crud.status.title"
+        width="500px"
+      >
         <el-form ref="form" :model="form" :rules="rules" size="small" label-width="80px">
           <el-form-item label="评价内容" prop="contents">
             <el-input v-model="form.contents" :rows="3" type="textarea" style="width: 370px;" />
@@ -32,9 +66,9 @@
             <el-select v-model="form.userId" placeholder="请选择">
               <el-option
                 v-for="item in userList"
-                :key="item.userId"
+                :key="item.id"
                 :label="item.username"
-                :value="item.userId"
+                :value="item.id"
               />
             </el-select>
           </el-form-item>
@@ -71,21 +105,48 @@
         </div>
       </el-dialog>
       <!--表格渲染-->
-      <el-table ref="table" v-loading="crud.loading" :data="crud.data" size="small" style="width: 100%;" @selection-change="crud.selectionChangeHandler">
+      <el-table
+        ref="table"
+        v-loading="crud.loading"
+        :data="crud.data"
+        size="small"
+        style="width: 100%;"
+        @selection-change="crud.selectionChangeHandler"
+      >
         <el-table-column type="selection" width="55" />
         <el-table-column prop="reviewId" label="评价编号" />
         <el-table-column prop="contents" label="评价内容" />
         <el-table-column prop="star" label="评价星级" />
-        <el-table-column prop="userId" label="评价用户" />
+        <el-table-column :show-overflow-tooltip="true" prop="user" label="评价用户">
+          <template slot-scope="scope">
+            <div v-if="scope.row.user !== null && scope.row.user !== undefined">
+              {{ scope.row.user.username }}
+            </div>
+          </template>
+        </el-table-column>
         <el-table-column :show-overflow-tooltip="true" prop="product" label="评价商品">
           <template slot-scope="scope">
-            <div>{{ scope.row.product.title }}</div>
+            <div v-if="scope.row.product !== null && scope.row.product !== undefined">
+              {{ scope.row.product.title }}
+            </div>
+          </template>
+        </el-table-column>
+        <el-table-column :show-overflow-tooltip="true" prop="shop" label="评价商铺">
+          <template slot-scope="scope">
+            <div v-if="scope.row.shop !== null && scope.row.shop !== undefined">
+              {{ scope.row.shop.title }}
+            </div>
           </template>
         </el-table-column>
         <!--        <el-table-column prop="productId" label="评价商品" />-->
-        <el-table-column prop="shopId" label="评价商铺" />
+        <!--        <el-table-column prop="shop?.title" label="评价商铺" />-->
         <el-table-column prop="createTime" label="创建时间" />
-        <el-table-column v-if="checkPer(['admin','review:edit','review:del'])" label="操作" width="150px" align="center">
+        <el-table-column
+          v-if="checkPer(['admin','review:edit','review:del'])"
+          label="操作"
+          width="150px"
+          align="center"
+        >
           <template slot-scope="scope">
             <udOperation
               :data="scope.row"
@@ -111,16 +172,36 @@ import { getProduct } from '@/api/ses/product'
 import { getShop } from '@/api/ses/shop'
 import { getUser } from '@/api/system/user'
 
-const defaultForm = { reviewId: null, contents: null, star: null, productId: null, userId: null, shopId: null, createTime: null, product: { product_id: null }, shop: { shop_id: null }, user: { user_id: null }}
+const defaultForm = {
+  reviewId: null,
+  contents: null,
+  star: null,
+  productId: null,
+  userId: null,
+  shopId: null,
+  createTime: null,
+  product: { product_id: null },
+  shop: { shop_id: null },
+  user: { user_id: null }
+}
 export default {
   name: 'Review',
   components: { pagination, crudOperation, rrOperation, udOperation },
   mixins: [presenter(), header(), form(defaultForm), crud()],
   cruds() {
-    return CRUD({ title: '评价', url: 'api/review', idField: 'reviewId', sort: 'reviewId,desc', crudMethod: { ...crudReview }})
+    return CRUD({
+      title: '评价',
+      url: 'api/review',
+      idField: 'reviewId',
+      sort: 'reviewId,desc',
+      crudMethod: { ...crudReview }
+    })
   },
   data() {
     return {
+      productList: [],
+      shopList: [],
+      userList: [],
       permission: {
         add: ['admin', 'review:add'],
         edit: ['admin', 'review:edit'],
@@ -167,7 +248,7 @@ export default {
     },
     async getUser() {
       const userList = await getUser()
-      // console.log(userList)
+      console.log('userList', userList)
       this.userList = userList.content
     }
   }

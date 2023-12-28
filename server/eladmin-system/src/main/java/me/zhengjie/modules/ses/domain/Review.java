@@ -64,6 +64,7 @@ public class Review implements Serializable {
 //    @ApiModelProperty(value = "评价商品")
 //    private Integer productId;
 
+    @TableField(value = "shop_id")
     @ApiModelProperty(value = "评价商铺")
     private Integer shopId;
 

@@ -24,7 +24,7 @@ import lombok.Data;
 @Data
 public class ReviewQueryCriteria{
     private Integer star;
-    private Integer userId;
-    private Integer productId;
-    private Integer shopId;
+    private String userId;
+    private String productId;
+    private String shopId;
 }

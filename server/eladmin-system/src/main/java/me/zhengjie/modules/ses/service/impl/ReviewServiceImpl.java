@@ -47,11 +47,7 @@ import java.util.stream.Collectors;
 
 import me.zhengjie.utils.PageResult;
 
-/**
- * @author ywx
- * @description 服务实现
- * @date 2023-12-26
- **/
+
 @Service
 @RequiredArgsConstructor
 public class ReviewServiceImpl extends ServiceImpl<ReviewMapper, Review> implements ReviewService {

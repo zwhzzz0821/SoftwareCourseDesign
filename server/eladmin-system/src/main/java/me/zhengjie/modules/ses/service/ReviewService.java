@@ -25,11 +25,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import me.zhengjie.utils.PageResult;
 
-/**
-* @description 服务接口
-* @author ywx
-* @date 2023-12-26
-**/
+
 public interface ReviewService extends IService<Review> {
 
     /**

@@ -35,11 +35,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
-* @description 服务实现
-* @author ywx
-* @date 2023-12-22
-**/
+
 @Service
 @RequiredArgsConstructor
 public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements ShopService {

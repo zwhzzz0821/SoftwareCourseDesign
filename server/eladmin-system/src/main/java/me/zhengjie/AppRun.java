@@ -26,12 +26,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * 开启审计功能 -> @EnableJpaAuditing
- *
- * @author Zheng Jie
- * @date 2018/11/15 9:20:19
- */
 @EnableAsync
 @RestController
 @Api(hidden = true)

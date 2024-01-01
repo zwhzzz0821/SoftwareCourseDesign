@@ -32,12 +32,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * WebMvcConfigurer
- *
- * @author Zheng Jie
- * @date 2018-11-30
- */
+
 @Configuration
 @EnableWebMvc
 public class ConfigurerAdapter implements WebMvcConfigurer {

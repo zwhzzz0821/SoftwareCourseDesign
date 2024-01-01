@@ -25,10 +25,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
-/**
-* @author ywx
-* @date 2023-12-22
-**/
+
 @Mapper
 public interface CatMapper extends BaseMapper<Cat> {
 

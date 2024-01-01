@@ -34,10 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
-* @author ywx
-* @date 2023-12-22
-**/
+
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "商品管理")

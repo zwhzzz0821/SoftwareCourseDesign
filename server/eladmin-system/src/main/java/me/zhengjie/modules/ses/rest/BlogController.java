@@ -32,10 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import me.zhengjie.utils.PageResult;
 
-/**
-* @author hello
-* @date 2023-12-28
-**/
+
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "论坛管理")

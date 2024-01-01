@@ -25,11 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-/**
-* @description 服务接口
-* @author ywx
-* @date 2023-12-22
-**/
+
 public interface ProductService extends IService<Product> {
 
     /**

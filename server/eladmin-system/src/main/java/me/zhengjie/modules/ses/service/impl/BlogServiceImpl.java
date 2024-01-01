@@ -34,11 +34,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import me.zhengjie.utils.PageResult;
 
-/**
-* @description 服务实现
-* @author hello
-* @date 2023-12-28
-**/
+
 @Service
 @RequiredArgsConstructor
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements BlogService {

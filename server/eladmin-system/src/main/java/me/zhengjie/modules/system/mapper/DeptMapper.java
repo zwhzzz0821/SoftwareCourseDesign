@@ -24,10 +24,7 @@ import org.apache.ibatis.annotations.Select;
 import java.util.List;
 import java.util.Set;
 
-/**
-* @author Zheng Jie
-* @date 2023-06-20
-*/
+
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
 
